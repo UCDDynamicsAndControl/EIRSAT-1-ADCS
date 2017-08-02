@@ -1,4 +1,4 @@
-function [ ADR_block ] = ADRblockGen( w,I,order)
+function [ ADR_block ] = ADRblockGen(w,I,order)
 %Create the transfer function used to reject disturbances from WBC
 %systems
 %   Produce a transfer function based on a state observer which is used for 
@@ -30,9 +30,8 @@ function [ ADR_block ] = ADRblockGen( w,I,order)
 %
 
 
-
 [L,b]=ESOvalues(w,I,order);%find L and b
-A=tf(L(3:end),[1,L]);%calculate the TF which ensres the ADR transfer funct remains proper
+A=tf(L(3:end),[1,L]);%calculate the TF which ensures the ADR transfer funct remains proper
 s=tf('s');
 
 %input 1 = plant output position

@@ -1,5 +1,4 @@
 %Graphics
-
 figure;
 subplot(3,1,1)
 plot(time,omega_oi);
