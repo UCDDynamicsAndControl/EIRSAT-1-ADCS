@@ -67,3 +67,6 @@ adr3=ADRblockGen(wo3,I(3,3),3);
 distrej1=1;%turn on the disturbance rejection. set =0 to turn off
 distrej2=1;
 distrej3=1;
+
+%Gain for the "Cross-Coupling" feedback
+k_realm = 0;
