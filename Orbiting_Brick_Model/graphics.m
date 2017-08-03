@@ -18,4 +18,4 @@ ylabel('Torques (Nm)')
 subplot(4,1,4)
 plot(time,x_coupl_fdbck);
 xlabel('time (s)')
-ylabel('Cross coupling feedback (Nm)')
+ylabel('Cross-coupling (Nm)')
