@@ -21,12 +21,12 @@ rel_tol = 1e-5;
 % Use one of the two options for initial conditions. 
 % Set in_cond_selec = 1 if you want to define x_0 or
 % Set in_cond_selec = 0 if you want to define omega_0 and euler_init
-in_cond_selec = 0;
+in_cond_selec = 1;
 %
 x_0=[0,0,0,1,0,0,0];
 % or
 omega_0=[30;30;30]*(1/sqrt(3))*(pi/180);
-euler_init=[0;3;3];%will be converted to a quaternion in simulink & fed into model
+euler_init=[0;0;0];%will be converted to a quaternion in simulink & fed into model
 
 %Ensures that the torque input to the model, M, is always a 3x1 vector;
 M=zeros(3,1);
@@ -36,7 +36,7 @@ mass = 15; %(Kg)
 
 %define inertia matrix
 I_mom = [1,1,1]; %Moments of inertia (Kg*m^2) in the form [I_xx, I_yy, I_zz]
-I_prd = [0,0.1,0.1]; %Products of inertia (Kg*m^2) in the form [I_xy, I_xz, I_yz]
+I_prd = [0,0,0]; %Products of inertia (Kg*m^2) in the form [I_xy, I_xz, I_yz]
 I = diag(I_mom) + [0 I_prd(1) I_prd(2); I_prd(1) 0 I_prd(3); I_prd(2) I_prd(3) 0];
 
 %Define orbit angular velocity
@@ -53,9 +53,9 @@ kp=40;
 kd=2*sqrt(I(1,1))*sqrt(kp);
 
 %WBC controller which gives similar results;
-k1 = 40; %notional spring stiffness (q_1)
-k2 = 40; %notional spring stiffness (q_2)
-k3 = 40; %notional spring stiffness (q_3)
+k1 = 10; %notional spring stiffness (q_1)
+k2 = 10; %notional spring stiffness (q_2)
+k3 = 10; %notional spring stiffness (q_3)
 
 G1 = nthorderWTF(sqrt(k1/I(1,1)),3); %create WTF going through itirative twice;
 G2 = nthorderWTF(sqrt(k2/I(2,2)),3);
