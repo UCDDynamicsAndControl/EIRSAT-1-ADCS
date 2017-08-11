@@ -16,7 +16,6 @@ function Y = discreteLPfilter(Y_prev,X,cutoff,sampl)
 %   * cutoff is the cut-off frequency  (Hz)
 %   * sampl is the sample rate (Hz)
 %
-% Written by Victorio Ubeda. July 2017.
 %__________________________________________________________________________
 
 c = 2*pi*cutoff/sampl;

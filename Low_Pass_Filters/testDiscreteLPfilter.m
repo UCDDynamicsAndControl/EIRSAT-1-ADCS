@@ -3,7 +3,6 @@
 % Script to test the discrete Low-Pass filter implemented 
 % in discreteLPfilter.m
 %
-% Written by Victorio Ubeda. July 2017.
 %__________________________________________________________________________
 
 % Frequencies
