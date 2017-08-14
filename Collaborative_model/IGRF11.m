@@ -1,4 +1,4 @@
-function [Bx, By, Bz] = IGRF11(COEFS, lat, lon, r, n, m, tol, Param, FRAME)
+function [Bx, By, Bz] = IGRF11(lat, lon, alt, n, m, tol, Param, FRAME)
 
 %__________________________________________________________________________
 %
@@ -15,17 +15,23 @@ function [Bx, By, Bz] = IGRF11(COEFS, lat, lon, r, n, m, tol, Param, FRAME)
 %   - m: degree of the legendre polynomials used for the approximation
 %   - tol: tolerance to avoid singularity %(1e9 in Brathe Thesis)
 %   - Param: Structure containing essential data. 
-%           To be extracted Param.Re: Mean radius of the earth
-%   - COEFS: IGRF Coefficients, to be loaded before with 
-%           COEFS = loadigrfcoefs(time); where time = datenum(date); 
-%               date = datenum('dd-mm-yyyy')
+%           To be extracted:
+%           * Param.Re: Mean radius of the earth
+%           * Param.IGRF_coefs: IGRF Coefficients
+% -------------------------------------------------------------------------
+%   How to load coefficients 
+%           COEFS = loadigrfcoefs(time); where 
+%           time = datenum(date); where
+%           date = datenum('dd-mm-yyyy')
+%   IGRF/ must be in Matlab Path
+% -------------------------------------------------------------------------
 %   - FRAME: String defining the frame in which the magnetic field will be
 %   expressed.
 %           * 'NED' for North - East - Down
 %           * 'ECEF' For Earth centered, earth fixed
-%
+%   If not specified, 'ECEF' frame is used by default
 % -------------------------------------------------------------------------
-% Frames
+%   Frames
 %   - Orbit frame: Spanned by the vectors X_o, Y_o, Z,o. Centered at the
 %       sattelite's C.O.M. Z_o points towards the center of the earth, X_0
 %       is parallel to the orbit agular momentum, Y completes the 
@@ -69,9 +75,11 @@ Pmax = (nmax+1)*(nmax+2)/2;
 %   - theta: inclination from z axis
 %   - phi: azimuth from x axis.
 
-% Load Earth mean radius from Param structure
+% Load parameters from Param structure
 Re = Param.Re;
+COEFS = Param.IGRF_coefs
 
+r = alt+Re;
 theta = pi/2 - lat;
 phi = lon;
 cphi = cos((1:nmax)*phi);
@@ -130,16 +138,16 @@ Bt = -Bt;
 
 
 %Express in different frames
-if strcmp(FRAME,'NED'); % We cannot compare strings directly
-    % Convert from spherical to NED
-    Bx = -Bt;
-    By = Bp;
-    Bz = -Br;
-elseif strcmp(FRAME,'ECEF')
+if strcmp(FRAME,'ECEF') || nargin<8
     % Convert from spherical to NED
     phi = lon;
     theta = pi/2-lat;
     Bx = (Br*sin(theta) + Bt*cos(theta))*cos(phi) - Bp*sin(phi);
     By = (Br*sin(theta) + Bt*cos(theta))*sin(phi) + Bp*cos(phi);
     Bz = Br*cos(theta) - Bt*sin(theta);
-end
+elseif strcmp(FRAME,'NED'); % We cannot compare strings directly
+    % Convert from spherical to NED
+    Bx = -Bt;
+    By = Bp;
+    Bz = -Br;
+else
