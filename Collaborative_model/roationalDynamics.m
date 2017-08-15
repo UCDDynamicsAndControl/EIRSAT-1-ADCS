@@ -1,4 +1,4 @@
-function xdot = roationalDynamics(x,M,omega_orbit)
+function xdot = roationalDynamics(x,M,I,omega_orbit)
 %Model of orbiting cube sat dynamics
 %   A model a cube sat orbing the earth. The output, xdot, is the time
 %   derivative of the state vector x. x=[omega,q]. where omega is the
@@ -6,10 +6,8 @@ function xdot = roationalDynamics(x,M,omega_orbit)
 %   at the centre of the earth. q is a quaternion which represents the
 %   rotation between the body fixed frame and the orbital frame. 
 
-%x=[omega,q];
-%xdot = zeros(7,1);
-
-I = diag([1,1,1]);
+% x=[omega,q];
+% xdot = zeros(7,1);
 
 %Definition of the state vector
 omega=x(1:3);
