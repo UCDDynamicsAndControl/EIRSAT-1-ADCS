@@ -1,13 +1,6 @@
-function [ xdot ] = CubeSatModel( inputs )
+function [ xdot ] = CubeSatModel( x,I,omega_orbit,T )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-
-%% seperate inputs to state vector and system parameters;
-x=inputs(1:18);
-I=inputs(19:27);
-I=reshape(I,3,3);
-omega_orbit=inputs(28:30);
-T=inputs(31);
 
 %% state info
 
