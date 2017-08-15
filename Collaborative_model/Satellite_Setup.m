@@ -14,27 +14,11 @@ altitude=405000;%similar altitude as ISS;
 
 %% initial state 
 
-wb_bi_init=[0;0;0];%init ang vel of body frame wrt inertial frame
+wb_bi_init=[0,0,0];%init ang vel of body frame wrt inertial frame
 qb_o_init=angle2quat(0,0,0,'XYZ');
 qb_i_init=angle2quat(0,0,0,'XYZ');
 qo_i_init=angle2quat(0,0,0,'XYZ');
 lat_init=0;
 long_init=0;
 
-x_0=[wb_bi_init;qb_o_init;qb_i_init;qo_i_init;long_init;lat_init;altitude];
-
-%% control
-
-%WBC
-k=1e-6;
-m=max(diag(I));
-w=sqrt(k/m);
-G=nthorderWTF(w,2);
-adr=ADRblockGen(w,m,3);%disturbance rejection block
-distrej=0;
-
-%PD
-kp=5e-9;
-kd=6e-4;
-
-q_ref=angle2quat(0,0,0,'XYZ');
+x_0=transpose([wb_bi_init,qb_o_init,qb_i_init,qo_i_init,long_init,lat_init,altitude]);
