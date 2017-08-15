@@ -1,4 +1,4 @@
-function [Bx, By, Bz] = IGRF11(lat, lon, alt, n, m, tol, Param, FRAME)
+function [Bx, By, Bz] = IGRF11(lat, lon, alt, n, m, tol, Re, COEFS, FRAME)
 
 %__________________________________________________________________________
 %
@@ -13,11 +13,8 @@ function [Bx, By, Bz] = IGRF11(lat, lon, alt, n, m, tol, Param, FRAME)
 %   - r: distance to the center of the Earth (m)
 %   - n: order of the approximation
 %   - m: degree of the legendre polynomials used for the approximation
-%   - tol: tolerance to avoid singularity %(1e9 in Brathe Thesis)
-%   - Param: Structure containing essential data. 
-%           To be extracted:
-%           * Param.Re: Mean radius of the earth
-%           * Param.IGRF_coefs: IGRF Coefficients
+%   - tol: tolerance to avoid singularity %(1e9 in BRathe Thesis)
+%   - COEFS: IGRF Coefficients
 % -------------------------------------------------------------------------
 %   How to load coefficients 
 %           COEFS = loadigrfcoefs(time); where 
@@ -64,7 +61,7 @@ end
 
 %
 nmax = sqrt(numel(COEFS) + 1) - 1;
-Pmax = (nmax+1)*(nmax+2)/2;
+PM = (nmax+1)*(nmax+2)/2;
 %
 
 
@@ -90,19 +87,20 @@ sth = sin(theta);
 
 
 % CALCULATION
-Br = 0; Bt = 0; Bp = 0;
-P = zeros(1, Pmax);  P(1) = 1;  P(3) = sth;
-dP = zeros(1, Pmax); dP(1) = 0; dP(3) = cth;
+BR = 0;
+Btheta = 0;
+Bphi = 0;
+P = zeros(1, PM);  P(1) = 1;  P(3) = sth;
+dP = zeros(1, PM); dP(1) = 0; dP(3) = cth;
 m = 1; n = 0; coefindex = 1;
-a_r = (Re*1e-3/r)^2;
+Ar = (Re*1e-3/r)^2;
 
-for Pindex = 2:Pmax
+for Pindex = 2:PM
     if n < m
         m = 0;
         n = n + 1;
-        a_r = a_r*(Re*1e-3/r);
+        Ar = Ar*(Re*1e-3/r);
     end
-    
     % Lagrange Polynomials and derivatives
     if m < n && Pindex ~= 3
         last1n = Pindex - n;
@@ -114,40 +112,38 @@ for Pindex = 2:Pmax
         P(Pindex) = sqrt(1 - 1/(2*m))*sth*P(lastn);
         dP(Pindex) = sqrt(1 - 1/(2*m))*(sth*dP(lastn) + cth*P(lastn));
     end
-    
     % Magnetic field 
     if m == 0
-        coef = a_r*COEFS(coefindex);
-        Br = Br + (n+1)*coef*P(Pindex);
-        Bt = Bt - coef*dP(Pindex);
+        coef = Ar*COEFS(coefindex);
+        BR = BR + (n+1)*coef*P(Pindex);
+        Btheta = Btheta - coef*dP(Pindex);
         coefindex = coefindex + 1;
     else
-        coef = a_r*(COEFS(coefindex)*cphi(m) + COEFS(coefindex+1)*sphi(m));
-        Br = Br + (n+1)*coef*P(Pindex);
-        Bt = Bt - coef*dP(Pindex);
+        coef = Ar*(COEFS(coefindex)*cphi(m) + COEFS(coefindex+1)*sphi(m));
+        BR = BR + (n+1)*coef*P(Pindex);
+        Btheta = Btheta - coef*dP(Pindex);
         if sth == 0
-            Bp = Bp - cth*a_r*(-COEFS(coefindex)*sphi(m) + COEFS(coefindex+1)*cphi(m))*dP(Pindex);
+            Bphi = Bphi - cth*Ar*(-COEFS(coefindex)*sphi(m) + COEFS(coefindex+1)*cphi(m))*dP(Pindex);
         else
-            Bp = Bp - 1/sth*a_r*m*(-COEFS(coefindex)*sphi(m) + COEFS(coefindex+1)*cphi(m))*P(Pindex);
+            Bphi = Bphi - 1/sth*Ar*m*(-COEFS(coefindex)*sphi(m) + COEFS(coefindex+1)*cphi(m))*P(Pindex);
         end
         coefindex = coefindex + 2;
     end
     m = m + 1;
 end
-Bt = -Bt;
-
+Btheta = -Btheta;
 
 %Express in different frames
-if strcmp(FRAME,'ECEF') || nargin<8
+if strcmp(FRAME,'ECEF') || nargin<9
     % Convert from spherical to NED
     phi = lon;
     theta = pi/2-lat;
-    Bx = (Br*sin(theta) + Bt*cos(theta))*cos(phi) - Bp*sin(phi);
-    By = (Br*sin(theta) + Bt*cos(theta))*sin(phi) + Bp*cos(phi);
-    Bz = Br*cos(theta) - Bt*sin(theta);
+    Bx = (BR*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
+    By = (BR*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
+    Bz = BR*cos(theta) - Btheta*sin(theta);
 elseif strcmp(FRAME,'NED'); % We cannot compare strings directly
     % Convert from spherical to NED
-    Bx = -Bt;
-    By = Bp;
-    Bz = -Br;
+    Bx = -Btheta;
+    By = Bphi;
+    Bz = -BR;
 else
