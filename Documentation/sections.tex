@@ -4,10 +4,59 @@
 This document details initial modelling and simulation of the Attitide determination and Control System (ADCS) for EIRSAT-1.
 This includes a background theory section, details of the simulation environment and a number of simulation results representing different control modes and different mission profiles.
 
-\section{Theory}
+\section{ADCS System Specification}
+
+\subsection{Control Modes}
+\begin{itemize}
+\item Detumble
+\item Nadir pointing
+\item Sun pointing
+\item Spin?
+\item Safe mode
+\end{itemize}
+
+\subsection{ACDS Requirements}
+
+Max rate to detumble?
+
+Required pointing accuracy?
+
+Settling time?
+
+\subsection{Failure modes}
+
+Loss of sensor
+
+Loss of actuator
+
+\section{Modelling}
 \subsection{Co-ordinate systems and Reference Frames}
 
+The spacecraft moves in an inertial reference frame $N$ with associated cartesian coordinate system $OXYZ$ where $\mathbf{n_1}$, $\mathbf{n_2}$ and $\mathbf{n_3}$ are unit vectors along the $X$, $Y$ and $Z$ axes respectively.
+
+A second reference frame $A$ is attached to the spacecraft rigid body with coordinate system $Cxyz$ where $C$ is the mass centre of the rigid body and $\mathbf{a_1}$, $\mathbf{a_2}$ and $\mathbf{a_3}$ are unit vectors along the $x$, $y$ and $z$ axes respectively.
+
+A third reference frame ........  orbital frame
+
 \subsection{Satellite Dynamics}
+
+EIRSAT-1 is modelled as a single rigid body with 6-DOF (degrees of freedom).
+The satellite has mass $m$ and inertia tensor $I$ in the body fixed coordinate system
+
+\subsection{Rotational Kinematics}
+
+The attitude of the spacecraft is described by quaternions.
+
+\subsubsection{Alternative representations of attitude and conversions}
+The orientation of the spacecraft may also be described using a Direction Cosine Matrix.
+
+The orientation of the spacecraft may also be described using Euler angles.
+Starting with the body-fixed $oxyz$ axes aligned with the $OXYZ$ axes, the body undergoes a sequence of rotations by angles $\theta_3$, $\theta_2$ and $\theta_1$ about the body-fixed $z$ (yaw), $y$ (pitch) and $x$ (roll) axes respectively to reach its final orientation.
+
+The DCM (Direction Cosine Matrix) is then described by equation \ref{eq:dcm}.
+\begin{equation} \label{eq:dcm}
+C = 
+\end{equation}
 
 \subsection{Orbital Dynamics}
 
@@ -18,6 +67,11 @@ This includes a background theory section, details of the simulation environment
 \subsection{Sensor Models}
 
 \subsection{Actuator Models}
+
+\section{Controller Design}
+\subsection{Dynamics block}
+\subsection{Environment block}
+\subsection{Sensor block}
 
 \section{Simulation Environment}
 Simulink Model Structure
