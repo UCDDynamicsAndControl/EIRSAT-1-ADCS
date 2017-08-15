@@ -21,7 +21,7 @@ qo_i_init=angle2quat(0,0,0,'XYZ');
 lat_init=0;
 long_init=0;
 
-x_0=[wb_bi;qb_o_init;qb_i_init;qo_i_init;long_init;lat_init;altitude];
+x_0=[wb_bi_init;qb_o_init;qb_i_init;qo_i_init;long_init;lat_init;altitude];
 
 %% control
 
