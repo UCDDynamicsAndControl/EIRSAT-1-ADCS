@@ -1,4 +1,4 @@
-function [Bx, By, Bz] = IGRF11(lat, lon, alt, n, m, tol, Re, COEFS, FRAME)
+function [Bx, By, Bz] = IGRF11(lon, lat, alt, n, m, tol, Re, COEFS, FRAME)
 
 %__________________________________________________________________________
 %
