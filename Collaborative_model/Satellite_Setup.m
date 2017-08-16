@@ -8,6 +8,11 @@ I=diag([Ixx;Iyy;Izz]);
 
 %IGRF11 Setup
 
+date = '15-Aug-2017' %Date to get IGRF coefficients
+    date_num = datenum(date);
+    time = datenum(date);
+    COEFS = loadigrfcoefs(time);
+
 
 %% Define orbit properties
 

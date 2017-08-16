@@ -11,7 +11,7 @@ setup(block);
 function setup(block)
 
 % Register parameters
-block.NumDialogPrms=6;
+block.NumDialogPrms = 6;
 
 % Register number of ports
 block.NumInputPorts  = 1;
@@ -36,8 +36,8 @@ block.RegBlockMethod('InitializeConditions', @InitializeConditions);
 block.RegBlockMethod('Outputs', @Outputs);    
 block.RegBlockMethod('Derivatives', @Derivatives);
 %end setup
-
-function InitializeConditions(block)
+ 
+function InitializeConditions(block) %Nothing to initialize
 %end InitializeConditions
 
 
@@ -49,11 +49,11 @@ alt = LLA(3);
 n=block.DialogPrm(1).Data;
 m=block.DialogPrm(2).Data;
 tol=block.DialogPrm(3).Data;
-COEFS=block.InputPort(4).Data;
-FRAME=block.DialogPrm(5).Data;
-block.OutputPort(1).Data=IGRF11(lat,lon,alt,n,m,tol,COEFS,FRAME);
+Re=block.InputPort(4).Data;
+COEFS=block.InputPort(5).Data;
+FRAME=block.DialogPrm(6).Data;
+block.OutputPort(1).Data=IGRF11(lat,lon,alt,n,m,tol,Re,COEFS,FRAME);
 %end Outputs
 
-function Derivatives(block)
-
+function Derivatives(block) %We do not have derivatives
 %end Derivatives
