@@ -6,6 +6,9 @@ Iyy=(1/12)*mass*((lx^2+lz^2));
 Izz=(1/12)*mass*((lx^2+ly^2));
 I=diag([Ixx;Iyy;Izz]);
 
+%IGRF11 Setup
+
+
 %% Define orbit properties
 
 omega_orbit=[0;-7.67/(401.1+6371);0];% Ang vel of orbit frame wrt inertial
