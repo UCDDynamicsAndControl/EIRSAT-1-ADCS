@@ -5,7 +5,7 @@ CtrlType=1;
 
 
 %PD
-%CtrlType=2;
+CtrlType=2;
 
 %% Control setup
 

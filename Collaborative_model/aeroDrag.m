@@ -1,4 +1,4 @@
-function Tb = aeroDrag(qb_o,I,mass,omega_orbit,c_p,vel,A_d)
+function Tb = aeroDrag(qb_o,omega_orbit,vel,I,mass,c_p,A_d)
 
 %__________________________________________________________________________
 %
@@ -40,7 +40,6 @@ Rb_o = transpose(Ro_b); %Transforms from the orbital frame to the body frame
 omega_b_ob=omega-(Rb_o*omega_orbit);
 
 rho_a = 4.89e-13; %Atmospheric density at LEO 
-%c_p = 0.02*[1;1;1]; %(!!!) HARDCODE Vector C.O.Mass - C.O.Pressure i.t.o. body frame
 c_pSk = SkewSym(c_p); % its Skew-Sym matrix
 V_o_r = [-1;0;0]; % Unity vector in the direction of the 
 %                        local atmospheric velocity i.t.o. orbital frame
@@ -49,8 +48,6 @@ VrSk = SkewSym(V_b_r); % its Skew-Sym matrix
 %vel = 7.664e3; %(!!!) HARDCODE magnitude of the local atmosfhere velocity
 a = c_p(1)^2; b = c_p(2)^2; c = c_p(3)^2;
 J = I + mass * [b+c c b; c a+c a; b a a+b]; %Inertia with origin the center of pressure. Steiner theorem
-%A_d = 0.2*0.1*sqrt(2); %(!!!) HARDCODE Aerodynamic area. Wrost case scenario
-
 Tb = rho_a * vel * (vel*A_d*c_pSk*V_b_r - (I + VrSk*J) * omega_b_ob);
 
 return;

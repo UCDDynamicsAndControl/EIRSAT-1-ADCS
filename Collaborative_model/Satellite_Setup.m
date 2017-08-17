@@ -19,8 +19,11 @@ igrf_tol = 1e-9; % Tolerance to avoid singularity at latitute = +- pi/2
 igrf_COEFS = loadigrfcoefs(time);
 igrf_FRAME = 'ECEF' % Frame in which the magnetic field will be expressed
 
-%% Define orbit properties
+%% Aerodynamic drag propierties
+aerodrag_c_p = 0.02*[1;1;1]; % Vector C.O.Mass - C.O.Pressure. Expressed in body frame
+aerodrag_A_d = 0.2*0.1*sqrt(2); % Aerodynamic area.
 
+%% Define orbit properties
 omega_orbit=[0;-7.67/(401.1+6371);0];% Ang vel of orbit frame wrt inertial
 % frame. give the same orbit period as ISS, buit is orbitng about equator
 altitude=405000;%similar altitude as ISS;
