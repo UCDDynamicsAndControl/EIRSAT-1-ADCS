@@ -6,11 +6,24 @@ Iyy=(1/12)*mass*((lx^2+lz^2));
 Izz=(1/12)*mass*((lx^2+ly^2));
 I=diag([Ixx;Iyy;Izz]);
 
-%IGRF11 Setup
+%% Earth
+earth_radius = 6371; % (meters)
 
+%% IGRF11 Setup
+date = '15-Aug-2017' % Date to get IGRF coefficients
+    date_num = datenum(date);
+    time = datenum(date);
+igrf_n = 10; %Order and degree of the spherical harmonic approximation
+igrf_m = 10;
+igrf_tol = 1e-9; % Tolerance to avoid singularity at latitute = +- pi/2
+igrf_COEFS = loadigrfcoefs(time);
+igrf_FRAME = 'ECEF' % Frame in which the magnetic field will be expressed
+
+%% Aerodynamic drag propierties
+aerodrag_c_p = 0.02*[1;1;1]; % Vector C.O.Mass - C.O.Pressure. Expressed in body frame
+aerodrag_A_d = 0.2*0.1*sqrt(2); % Aerodynamic area.
 
 %% Define orbit properties
-
 omega_orbit=[0;-7.67/(401.1+6371);0];% Ang vel of orbit frame wrt inertial
 % frame. give the same orbit period as ISS, buit is orbitng about equator
 altitude=405000;%similar altitude as ISS;
