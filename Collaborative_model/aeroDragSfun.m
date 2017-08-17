@@ -23,7 +23,7 @@ block.SetPreCompOutPortInfoToDynamic;
 % Override input port properties
 block.InputPort(1).Dimensions = 3;
 block.InputPort(2).Dimensions = 3;
-block.InputPort(2).Dimensions = 1;
+block.InputPort(3).Dimensions = 1;
 block.InputPort(1).DirectFeedthrough = false;
 block.InputPort(1).DirectFeedthrough = false;
 
@@ -47,7 +47,7 @@ function InitializeConditions(block) %Nothing to initialize
 function Outputs(block)
 qb_o = block.InputPort(1).Data;
 omega_orbit = block.InputPort(2).Data;
-vel=block.InputPort(2).Data
+vel=block.InputPort(3).Data;
 I=block.DialogPrm(1).Data;
 mass=block.DialogPrm(2).Data;
 c_p=block.DialogPrm(3).Data;
