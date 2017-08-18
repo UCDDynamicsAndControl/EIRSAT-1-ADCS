@@ -1,4 +1,4 @@
-function [Bx, By, Bz] = IGRF11(lon, lat, alt, n, m, tol, Re, COEFS, FRAME)
+function [B] = IGRF11(lon, lat, alt, n, m, tol, Re, COEFS, FRAME)%[Bx, By, Bz]
 
 %__________________________________________________________________________
 %
@@ -73,8 +73,8 @@ PM = (nmax+1)*(nmax+2)/2;
 %   - phi: azimuth from x axis.
 
 % Load parameters from Param structure
-Re = Param.Re;
-COEFS = Param.IGRF_coefs
+%Re = Param.Re;
+%COEFS = Param.IGRF_coefs;
 
 r = alt+Re;
 theta = pi/2 - lat;
@@ -92,10 +92,11 @@ Btheta = 0;
 Bphi = 0;
 P = zeros(1, PM);  P(1) = 1;  P(3) = sth;
 dP = zeros(1, PM); dP(1) = 0; dP(3) = cth;
-m = 1; n = 0; coefindex = 1;
+%m = 1; n = 0; 
+coefindex = 1;
 Ar = (Re*1e-3/r)^2;
 
-for Pindex = 2:PM
+for Pindex = 2:PM 
     if n < m
         m = 0;
         n = n + 1;
@@ -103,7 +104,7 @@ for Pindex = 2:PM
     end
     % Lagrange Polynomials and derivatives
     if m < n && Pindex ~= 3
-        last1n = Pindex - n;
+        last1n = Pindex - n; %%%%%%%%%%% Victor. Problem seems to be here. Pindex will at first be 2. n could be set to a higher value. last1n & last2n need to be positiv integers. lines 107 & 108 suggest that n can only be 1 or zero. 
         last2n = Pindex - 2*n + 1;
         P(Pindex) = (2*n - 1)/sqrt(n^2 - m^2)*cth*P(last1n) - sqrt(((n-1)^2 - m^2) / (n^2 - m^2)) * P(last2n);
         dP(Pindex) = (2*n - 1)/sqrt(n^2 - m^2)*(cth*dP(last1n) - sth*P(last1n)) - sqrt(((n-1)^2 - m^2) / (n^2 - m^2)) * dP(last2n);
@@ -134,21 +135,48 @@ end
 Btheta = -Btheta;
 
 %Express in different frames
-if strcmp(FRAME,'ECEF') || strcmp(FRAME,'ECI')  ||  nargin < 8
-    % Convert from spherical to NED
-    phi = lon;
-    theta = pi/2-lat;
-    Bx = (BR*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
-    By = (BR*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
-    Bz = BR*cos(theta) - Btheta*sin(theta);
-    if strcmp(FRAME,'ECI')  ||  nargin < 8
+% if strcmp(FRAME,'ECEF') || strcmp(FRAME,'ECI')  ||  nargin < 8
+%     % Convert from spherical to NED
+%     phi = lon;
+%     theta = pi/2-lat;
+%     Bx = (BR*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
+%     By = (BR*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
+%     Bz = BR*cos(theta) - Btheta*sin(theta);
+%     if strcmp(FRAME,'ECI')  ||  nargin < 8
+%         dcm = dcmeci2ecef('IAU-76/FK5',[2017 8 17 0 0 0]);
+%         dcm = dcm';
+%         B = dcm*[Bx;By;Bz];
+%     end
+% elseif strcmp(FRAME,'NED'); % We cannot compare strings directly
+%     % Convert from spherical to NED
+%     Bx = -Btheta;
+%     By = Bphi;
+%     Bz = -BR;
+%     B=[Bx;By;Bz];
+% end
+
+switch FRAME
+    case 'ECEF'
+        phi = lon;
+        theta = pi/2-lat;
+        Bx = (BR*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
+        By = (BR*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
+        Bz = BR*cos(theta) - Btheta*sin(theta);
+        B=[Bx;By;Bz];
+    case 'ECI'
+        phi = lon;
+        theta = pi/2-lat;
+        Bx = (BR*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
+        By = (BR*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
+        Bz = BR*cos(theta) - Btheta*sin(theta);
         dcm = dcmeci2ecef('IAU-76/FK5',[2017 8 17 0 0 0]);
         dcm = dcm';
         B = dcm*[Bx;By;Bz];
-    end
-elseif strcmp(FRAME,'NED'); % We cannot compare strings directly
-    % Convert from spherical to NED
-    Bx = -Btheta;
-    By = Bphi;
-    Bz = -BR;
+    case 'NED'
+        Bx = -Btheta;
+        By = Bphi;
+        Bz = -BR;
+        B=[Bx;By;Bz];
+end
+
 end
