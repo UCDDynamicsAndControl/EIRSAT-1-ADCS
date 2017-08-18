@@ -49,8 +49,8 @@ alt = LLA(3);
 n=block.DialogPrm(1).Data;
 m=block.DialogPrm(2).Data;
 tol=block.DialogPrm(3).Data;
-Re=block.InputPort(4).Data;
-COEFS=block.InputPort(5).Data;
+Re=block.DialogPrm(4).Data;
+COEFS=block.DialogPrm(5).Data;
 FRAME=block.DialogPrm(6).Data;
 block.OutputPort(1).Data=IGRF11(lat,lon,alt,n,m,tol,Re,COEFS,FRAME);
 %end Outputs
