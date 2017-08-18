@@ -1,4 +1,4 @@
-function Tb = aeroDrag(qb_o,omega_orbit,vel,I,mass,c_p,A_d)
+function Tb = aeroDrag(qb_o,omega,omega_orbit,vel,I,mass,c_p,A_d)
 
 %__________________________________________________________________________
 %
