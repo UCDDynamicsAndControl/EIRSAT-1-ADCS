@@ -43,8 +43,8 @@ function InitializeConditions(block) %Nothing to initialize
 
 function Outputs(block)
 LLA = block.InputPort(1).Data;
-lat = LLA(1);
-lon = LLA(2);
+lon = LLA(1);
+lat = LLA(2);
 alt = LLA(3);
 n=block.DialogPrm(1).Data;
 m=block.DialogPrm(2).Data;
