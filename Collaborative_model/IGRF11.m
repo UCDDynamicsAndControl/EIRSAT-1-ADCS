@@ -134,14 +134,14 @@ end
 Btheta = -Btheta;
 
 %Express in different frames
-if strcmp(FRAME,'ECEF') || strcmp(FRAME,'ECEF')  ||  nargin < 8
+if strcmp(FRAME,'ECEF') || strcmp(FRAME,'ECI')  ||  nargin < 8
     % Convert from spherical to NED
     phi = lon;
     theta = pi/2-lat;
     Bx = (BR*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
     By = (BR*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
     Bz = BR*cos(theta) - Btheta*sin(theta);
-    if strcmp(FRAME,'ECEF')  ||  nargin < 8
+    if strcmp(FRAME,'ECI')  ||  nargin < 8
         dcm = dcmeci2ecef('IAU-76/FK5',[2017 8 17 0 0 0]);
         dcm = dcm';
         B = dcm*[Bx;By;Bz];
