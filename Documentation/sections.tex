@@ -14,7 +14,7 @@ These test cases include demonstrations of different control modes, different co
 \item Satellite attitude dynamics, modelled as a single rigid body with 6DOF
 \item Orbit propagation of the satellite after release from the ISS
 \item Disturbance torques including: gravity gradient, solar radiation pressure, aerodynamic, residual magnetic field
-\item Orbit propagation of the satellite after
+\item orbit propagation after release from ISS
 \end{itemize}
 \item Define the different ADCS operational modes and functional requirements for each mode
 \item Design feedback controllers for each mode of the ADCS:
@@ -61,11 +61,11 @@ Time taken?
 \section{Mathematical Modelling}
 \subsection{Co-ordinate systems and Reference Frames}
 
-The spacecraft moves in an inertial reference frame $N$ with associated cartesian coordinate system $OXYZ$ where $\mathbf{n_1}$, $\mathbf{n_2}$ and $\mathbf{n_3}$ are unit vectors along the $X$, $Y$ and $Z$ axes respectively.
+The spacecraft moves in an inertial reference frame $N$ with associated cartesian coordinate system $OXYZ$ where $\mathbf{n_1}$, $\mathbf{n_2}$ and $\mathbf{n_3}$ are unit vectors along the $X$, $Y$ and $Z$ axes respectively. This coordinate system is centred at the center of the earth, $\mathbf{n_3}$ is normal to the equatorial plane and parallel to the earth rotational axis, pointing towards north pole, $\mathbf{n_1}$ points towards the vernal equinox, and $\mathbf{n_2}$ completes the right-handed orthonormal frame.
 
 A second reference frame $A$ is attached to the spacecraft rigid body with coordinate system $Cxyz$ where $C$ is the mass centre of the rigid body and $\mathbf{a_1}$, $\mathbf{a_2}$ and $\mathbf{a_3}$ are unit vectors along the $x$, $y$ and $z$ axes respectively.
 
-A third reference frame ........  orbital frame
+A third reference frame, named orbital frame, and here denoted $O$, is spanned by the unit vectors $\mathbf{o_1}$, $\mathbf{o_2}$ and $\mathbf{o_3}$, and centred at the satellite's center of mass. The vector $\mathbf{o_3}$ constantly points to the Earth's center, whereas $\mathbf{o_2}$ aligns with the orbit angular momentum. $\mathbf{o_2}$ is the cross product of $\mathbf{o_3}$ and $\mathbf{o_1}$, completing the three axis orthonormal frame.
 
 \subsection{Satellite Dynamics}
 
