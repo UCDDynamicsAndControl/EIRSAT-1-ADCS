@@ -10,14 +10,14 @@ I=diag([Ixx;Iyy;Izz]);
 earth_radius = 6371; % (meters)
 
 %% IGRF11 Setup
-date = '15-Aug-2017' % Date to get IGRF coefficients
+date = '15-Aug-2017'; % Date to get IGRF coefficients
     date_num = datenum(date);
     time = datenum(date);
 igrf_n = 10; %Order and degree of the spherical harmonic approximation
 igrf_m = 10;
 igrf_tol = 1e-9; % Tolerance to avoid singularity at latitute = +- pi/2
 igrf_COEFS = loadigrfcoefs(time);
-igrf_FRAME = 'ECEF' % Frame in which the magnetic field will be expressed
+igrf_FRAME = 'ECEF'; % Frame in which the magnetic field will be expressed
 
 %% Aerodynamic drag propierties
 aerodrag_c_p = 0.02*[1;1;1]; % Vector C.O.Mass - C.O.Pressure. Expressed in body frame

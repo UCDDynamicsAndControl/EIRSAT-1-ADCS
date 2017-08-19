@@ -21,7 +21,7 @@ block.SetPreCompInpPortInfoToDynamic;
 block.SetPreCompOutPortInfoToDynamic;
 
 % Override input port properties
-block.InputPort(1).Dimensions = 3;
+block.InputPort(1).Dimensions = 4;
 block.InputPort(2).Dimensions = 3;
 block.InputPort(1).DirectFeedthrough = false;
 block.InputPort(1).DirectFeedthrough = false;

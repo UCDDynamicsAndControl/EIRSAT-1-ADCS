@@ -13,7 +13,7 @@ function setup(block)
 block.NumDialogPrms = 4;
 
 % Register number of ports
-block.NumInputPorts  = 3;
+block.NumInputPorts  = 4;
 block.NumOutputPorts = 1;
 
 % Setup port properties to be inherited or dynamic
@@ -21,19 +21,22 @@ block.SetPreCompInpPortInfoToDynamic;
 block.SetPreCompOutPortInfoToDynamic;
 
 % Override input port properties
-block.InputPort(1).Dimensions = 3;
+block.InputPort(1).Dimensions = 4;
 block.InputPort(2).Dimensions = 3;
-block.InputPort(2).Dimensions = 1;
+block.InputPort(3).Dimensions = 1;
+block.InputPort(4).Dimensions = 3;
 block.InputPort(1).DirectFeedthrough = false;
-block.InputPort(1).DirectFeedthrough = false;
+block.InputPort(2).DirectFeedthrough = false;
+block.InputPort(3).DirectFeedthrough = false;
+block.InputPort(4).DirectFeedthrough = false;
 
 % Override output port properties
 block.OutputPort(1).Dimensions = 3;
 
 
 block.SampleTimes = [0 0];%continuous sample time
-block.NumContStates=18;
-block.SimStateCompliance = 'DefaultSimState';
+%block.NumContStates=18;
+%block.SimStateCompliance = 'DefaultSimState';
 
 block.RegBlockMethod('InitializeConditions', @InitializeConditions);
 block.RegBlockMethod('Outputs', @Outputs);    
@@ -47,12 +50,13 @@ function InitializeConditions(block) %Nothing to initialize
 function Outputs(block)
 qb_o = block.InputPort(1).Data;
 omega_orbit = block.InputPort(2).Data;
-vel=block.InputPort(2).Data
+vel=block.InputPort(3).Data;
+omega=block.InputPort(4).Data;
 I=block.DialogPrm(1).Data;
 mass=block.DialogPrm(2).Data;
 c_p=block.DialogPrm(3).Data;
-A_d=block.InputPort(4).Data;
-block.OutputPort(1).Data=aeroDrag(qb_o,omega_orbit,vel,I,mass,c_p,A_d);
+A_d=block.DialogPrm(4).Data;
+block.OutputPort(1).Data=aeroDrag(qb_o,omega,omega_orbit,vel,I,mass,c_p,A_d);
 %end Outputs
 
 function Derivatives(block) %We do not have derivatives
