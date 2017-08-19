@@ -1,4 +1,4 @@
-function [Bx, By, Bz] = IGRF11(lon, lat, alt, n, m, tol, Re, COEFS, FRAME)
+function [Bx, By, Bz] = IGRF11(lon, lat, alt, L, tol, Re, COEFS, FRAME)
 
 %__________________________________________________________________________
 %
@@ -6,14 +6,14 @@ function [Bx, By, Bz] = IGRF11(lon, lat, alt, n, m, tol, Re, COEFS, FRAME)
 % harmonical approximation of order n and degree m using IGRF-11 Gaussian
 % coefficients provided by IAGA. 
 % 
-% [Bx, By, Bz] = IGRF11(lat, lon, R, N, M, tol, Param)
+% [Bx, By, Bz] = IGRF11(lat, lon, R, N, M, tol, COEFS, FRAME)
 %   - [Bx, By, Bz]: Computed magnetic field as a 3x1 vector (T)
 %   - lat: latitude (rad)
 %   - lon: longitude (rad)
 %   - r: distance to the center of the Earth (m)
 %   - n: order of the approximation
 %   - m: degree of the legendre polynomials used for the approximation
-%   - tol: tolerance to avoid singularity %(1e9 in BRathe Thesis)
+%   - tol: tolerance to avoid singularity %(1e9 in Brathe Thesis)
 %   - COEFS: IGRF Coefficients
 % -------------------------------------------------------------------------
 %   How to load coefficients 
@@ -45,8 +45,6 @@ function [Bx, By, Bz] = IGRF11(lon, lat, alt, n, m, tol, Re, COEFS, FRAME)
 %
 %__________________________________________________________________________
 
-
-
 % AVOID SINGULARITY
 lat = mod(lat,2*pi);
 if (lat > pi/2 - tol && lat < pi/2 + tol)
@@ -64,7 +62,6 @@ nmax = sqrt(numel(COEFS) + 1) - 1;
 PM = (nmax+1)*(nmax+2)/2;
 %
 
-
 %__CONVERT TO SPHERICAL COORDINATES________________________________________
 % Convert latitude, longitude and distance to the center (r)
 % to spherical coordinates:
@@ -72,9 +69,6 @@ PM = (nmax+1)*(nmax+2)/2;
 %   - theta: inclination from z axis
 %   - phi: azimuth from x axis.
 
-% Load parameters from Param structure
-Re = Param.Re;
-COEFS = Param.IGRF_coefs
 
 r = alt+Re;
 theta = pi/2 - lat;
@@ -87,40 +81,31 @@ sth = sin(theta);
 
 
 % CALCULATION
-BR = 0;
-Btheta = 0;
-Bphi = 0;
-P = zeros(1, PM);  P(1) = 1;  P(3) = sth;
-dP = zeros(1, PM); dP(1) = 0; dP(3) = cth;
-m = 1; n = 0; coefindex = 1;
-Ar = (Re*1e-3/r)^2;
 
+Br = 0; Btheta = 0; Bphi = 0;
+coefindex = 1;
+Ar = (Re*1e-3/r);
 for Pindex = 2:PM
     if n < m
         m = 0;
         n = n + 1;
         Ar = Ar*(Re*1e-3/r);
     end
+    
     % Lagrange Polynomials and derivatives
-    if m < n && Pindex ~= 3
-        last1n = Pindex - n;
-        last2n = Pindex - 2*n + 1;
-        P(Pindex) = (2*n - 1)/sqrt(n^2 - m^2)*cth*P(last1n) - sqrt(((n-1)^2 - m^2) / (n^2 - m^2)) * P(last2n);
-        dP(Pindex) = (2*n - 1)/sqrt(n^2 - m^2)*(cth*dP(last1n) - sth*P(last1n)) - sqrt(((n-1)^2 - m^2) / (n^2 - m^2)) * dP(last2n);
-    elseif Pindex ~= 3
-        lastn = Pindex - n - 1;
-        P(Pindex) = sqrt(1 - 1/(2*m))*sth*P(lastn);
-        dP(Pindex) = sqrt(1 - 1/(2*m))*(sth*dP(lastn) + cth*P(lastn));
-    end
+    [P_, dP_] = legendreRecursive(theta,cth,sth,n,m);
+    P(Pindex) = P_;
+    dP(Pindex) = dP_;
+    
     % Magnetic field 
     if m == 0
         coef = Ar*COEFS(coefindex);
-        BR = BR + (n+1)*coef*P(Pindex);
+        Br = Br + (n+1)*coef*P(Pindex);
         Btheta = Btheta - coef*dP(Pindex);
         coefindex = coefindex + 1;
     else
         coef = Ar*(COEFS(coefindex)*cphi(m) + COEFS(coefindex+1)*sphi(m));
-        BR = BR + (n+1)*coef*P(Pindex);
+        Br = Br + (n+1)*coef*P(Pindex);
         Btheta = Btheta - coef*dP(Pindex);
         if sth == 0
             Bphi = Bphi - cth*Ar*(-COEFS(coefindex)*sphi(m) + COEFS(coefindex+1)*cphi(m))*dP(Pindex);
@@ -138,17 +123,17 @@ if strcmp(FRAME,'ECEF') || strcmp(FRAME,'ECI')  ||  nargin < 8
     % Convert from spherical to NED
     phi = lon;
     theta = pi/2-lat;
-    Bx = (BR*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
-    By = (BR*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
-    Bz = BR*cos(theta) - Btheta*sin(theta);
+    Bx = (Br*sin(theta) + Btheta*cos(theta))*cos(phi) - Bphi*sin(phi);
+    By = (Br*sin(theta) + Btheta*cos(theta))*sin(phi) + Bphi*cos(phi);
+    Bz = Br*cos(theta) - Btheta*sin(theta);
     if strcmp(FRAME,'ECI')  ||  nargin < 8
         dcm = dcmeci2ecef('IAU-76/FK5',[2017 8 17 0 0 0]);
         dcm = dcm';
         B = dcm*[Bx;By;Bz];
     end
-elseif strcmp(FRAME,'NED'); % We cannot compare strings directly
+elseif strcmp(FRAME,'NED');
     % Convert from spherical to NED
     Bx = -Btheta;
     By = Bphi;
-    Bz = -BR;
+    Bz = -Br;
 end

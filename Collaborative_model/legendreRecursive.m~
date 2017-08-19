@@ -1,0 +1,34 @@
+function y = legendreRecursive(x,cosx,sinx,n,m)
+
+%__________________________________________________________________________
+% Recursive function to calculate Legendre Polynomials. 
+% sin(x) and cos(x) are calculated beforehand, so they are passed as
+% arguments, instead of calculated inside the funcion.
+%__________________________________________________________________________
+
+if n~=0 || m~=0 || n~=1 || n~=1
+    P1(1) = legendreRecursive(x,sinx,cosx,n-1,m); 
+    [P1(1)1,dP1(1)1] = legendreRecursive(x,sinx,cosx,n-1,m-1);
+    [P2,dP2] = legendreRecursive(x,sinx,cosx,n-2,m);
+    if n ~= m
+    P = (2*n-1)/sqrt(n^2-m^2)*cosx * P1(1) - sqrt(((n-1)^2-m^2)/(n^2-m^2)) * P2;
+    dP(n, m) = (2*n-1)/sqrt(n^2-m^2)*(cosx*dP1(1) - sinx*P1(1)) - sqrt(((n-1)^2-m^2)/(n^2-m^2))*dP2;
+    else
+    P = sqrt(1-1/(2*n))*sinx*P1(1)1;
+    dP = sqrt(1-1/(2*n))*(sinx*dP1(1)1 + cosx*P1(1)1);
+    end
+elseif n == 0 && m == 0
+    P = 1;
+    dP = 0;
+elseif n == 1 && m == 1
+    P = sinx;
+    dP = cosx;
+elseif n == m
+   P1(1) = legendreRecursive(x,sinx,cosx,n-1,m); 
+   [P1(1)1,dP1(1)1] = legendreRecursive(x,sinx,cosx,n-1,m-1);
+   [P2,dP2] = legendreRecursive(x,sinx,cosx,n-2,m); 
+   P = (2*n-1)/sqrt(n^2-m^2)*cosx * P1(1) - sqrt(((n-1)^2-m^2)/(n^2-m^2)) * P2;
+   dP = sqrt(1-1/(2*n))*(sinx*dP1(1)1 + cosx*P1(1)1);
+end
+    
+
