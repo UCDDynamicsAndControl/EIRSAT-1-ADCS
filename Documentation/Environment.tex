@@ -7,15 +7,15 @@ The set of shperical harmonics is an orthonormal set of functions defined in the
 Here, the spherical coordinates are taken to be
 \begin{itemize} 
 \item[] $r$, the radial distance from Earth's center
-\item[] $\lambda$, the East longitude % Bounded between... % ...write nicer
+\item[] $\phi$, the East longitude % Bounded between... % ...write nicer
 \item[] $\theta$, the co-latitude, defined to be $\theta = \frac{\pi}{2} - \theta'$, with $\theta'$ the latitude. % Bounded between... % ...write nicer
 \end{itemize}
 
 
 The magnetic field is given by the negative gradient of the potential $V$ defined for $r \geq R_e$, and given by the spherical harmonic approximation
 
-\begin{equation}
-V = r \sum_{n=1}^{N} \left(\dfrac{R_e}{r}\right)^{n+1} \left(g_n^m cos(m\lambda) + h_n^m sin(m\lambda)\right) P_n^m(\theta)
+\begin{equation} \label{eq:igrf_potential}
+V = r \sum_{n=1}^{L} \left(\dfrac{R_e}{r}\right)^{n+1} \sum_{m=0}^{n} \left(g_n^m cos(m\phi) + h_n^m sin(m\phi)\right) P_n^m(cos\theta)
 \end{equation}
 
 That is
@@ -30,3 +30,73 @@ of Geomagnetism and Aeronomy). The $12^{th}$ generation is here used, as the las
 $P_n^m(cos \theta)$ are the Schmidt normalized associated Legendree polynomials of degree n and order m
 
 One can find very effective, recursive ways of computing the Schmidt quasi-normalization factors, the Associated Legendre polynomials and its derivatives, as can be found on [J.Davis - Mathematical Modeling of Earth’s Magnetic Field] %\cite{...}
+
+The three componentens of the magnetic field in $r$, $\phi$ and $\theta$ directions can be found in terms of the partial derivatives of \ref{eq:igrf_potential}
+
+\begin{equation}
+{\bm \beta}_r = -\dfrac{\partial V}{\partial r} = \sum_{n=1}^{N} (n+1) \left(\dfrac{R_e}{r}\right)^{n+2} \sum_{m=0}^{n} \left(g_n^m cos(m\phi) + h_n^m sin(m\phi)\right) P_n^m(cos\theta)
+\end{equation}
+
+\begin{equation}
+{\bm \beta}_{\theta} = -\dfrac{1}{r} \dfrac{\partial V}{\partial \theta} = 
+-\sum_{n=1}^{L} \left(\dfrac{R_e}{r}\right)^{n+2} \sum_{m=0}^{n} \left(g_n^m cos(m\phi) + h_n^m sin(m\phi)\right) \dfrac{\partial P_n^m(cos\theta)}{\partial \theta}
+\end{equation}
+
+\begin{equation}
+{\bm \beta}_{\theta} = -\dfrac{1}{r sin\theta} \dfrac{\partial V}{\partial \phi} = 
+\dfrac{1}{sin\phi}\sum_{n=1}^{L} \left(\dfrac{R_e}{r}\right)^{n+2} \sum_{m=0}^{n} m\left(g_n^m sin(m\phi) - h_n^m cos(m\phi)\right) P_n^m(cos\theta)
+\end{equation}
+
+{\bf Legendre Polynomials}
+
+The set of regular Legendre Polynomials is given by the solutions $P_n(\nu)$ to the equation
+\begin{equation}
+\dfrac{1}{\sqrt{1-2\nu x + x^2}} = \sum_{n=0}^\infty x^2 P_n(\nu)
+\end{equation}
+Which gives
+\begin{equation}
+P_n(\nu) = \dfrac{1}{n! 2^n} \dfrac{d^n}{d\nu^n} (\nu^2 -1)^n
+\end{equation}
+
+{\bf Associated Legendre Polynomials}
+
+The associated Legendre polynomials $P_n^m(\nu)$ of degree n and order m relate to $P_n(\nu)$ by
+\begin{equation}
+P_{n,m}(\nu) = (1-\nu^2)^{\frac{1}{2m}} \dfrac{d^m}{d\nu^m}(P_n(\nu))
+\end{equation}
+These polynomias are not normalized in any way. 
+
+{\bf Gaussian normalization and Schmidt quasi-normalization}
+
+To compute the geomagnetic field, the Schmidt quasi-normalization is used, and is given by
+\begin{equation}
+P_n^m(\nu) = \sqrt{\dfrac{2(n-m)!}{(n+m)!}} P_{n,m}(\nu) 
+\end{equation}
+
+The Gaussian normalizalized Legendre polynomials, whose interest lies in the existence of a recursive formula for their effective computation are given by
+\begin{equation}
+P^{n,m}(\nu) = \dfrac{2^n! (n-m)!}{(2n)!} P_{n,m}(\nu)
+\end{equation}
+
+One can relate the Gaussian normalization and the Schmidt quasi-normalization by using
+\begin{equation}
+P_n^m(\nu) = \Gamma_{n,m} P^{n,m}(\nu)
+\end{equation}
+Where
+\begin{equation}
+\begin{aligned}
+\Gamma_{n,m} &= \sqrt{\dfrac{(n-m)!}{(n+m)!}}\dfrac{(2n-1)!!}{(n-m)!}, &m = 0\\
+\Gamma_{n,m} &= \sqrt{\dfrac{2(n-m)!}{(n+m)!}}\dfrac{(2n-1)!!}{(n-m)!}, &m \neq 0
+\end{aligned}
+\end{equation}
+
+It is more convinient to modify the coefficients, as
+\begin{equation}
+\begin{aligned}
+g_n^m &= \Gamma_{n,m}\ g_{n,m}\\ h_n^m &= \Gamma_{n,m}\ h_{n,m}
+\end{aligned}
+\end{equation}
+
+
+\footnote{Note the use of notation here to distinguish between Regular, Associated, and Schmidt quasi-normalized Legendre Polynomials}
+

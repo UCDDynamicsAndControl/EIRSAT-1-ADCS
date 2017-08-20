@@ -1,4 +1,4 @@
-function IGRF11Sfun(block)
+function IGRFSfun(block)
 %MSFUNTMPL_BASIC A Template for a Level-2 MATLAB S-Function
 %   The MATLAB S-function is written as a MATLAB function with the
 %   same name as the S-function. Replace 'msfuntmpl_basic' with the 
@@ -11,10 +11,10 @@ setup(block);
 function setup(block)
 
 % Register parameters
-block.NumDialogPrms = 5;
+block.NumDialogPrms = 4;
 
 % Register number of ports
-block.NumInputPorts  = 1;
+block.NumInputPorts  = 2;
 block.NumOutputPorts = 1;
 
 % Setup port properties to be inherited or dynamic
@@ -23,6 +23,7 @@ block.SetPreCompOutPortInfoToDynamic;
 
 % Override input port properties
 block.InputPort(1).Dimensions = 3;
+block.InputPort(2).Dimensions = 1;
 block.InputPort(1).DirectFeedthrough = false;
 
 % Override output port properties
@@ -40,19 +41,18 @@ block.RegBlockMethod('Derivatives', @Derivatives);
 function InitializeConditions(block) %Nothing to initialize
 %end InitializeConditions
 
-
 function Outputs(block)
-LLA = block.InputPort(1).Data;
+LLA = block.InputPort(1).Data; % long, lat, alt
+LST = block.InputPort(1).Data; % Local Sidereal Time
 lon = LLA(1);
 lat = LLA(2);
 alt = LLA(3);
 L=block.DialogPrm(1).Data;
 tol=block.DialogPrm(2).Data;
-Re=block.DialogPrm(3).Data;
-COEFS=block.DialogPrm(4).Data;
-FRAME=block.DialogPrm(5).Data;
-block.OutputPort(1).Data=IGRF11(lat,lon,alt,L,tol,Re,COEFS,FRAME);
+G_COEFS=block.DialogPrm(3).Data;
+H_COEFS=block.DialogPrm(4).Data;
+block.OutputPort(1).Data=IGRF(lat,lon,alt,L,tol,G_COEFS,H_COEFS,LST);
 %end Outputs
 
-function Derivatives(block) %We do not have derivatives
+function Derivatives(block) % There are not any derivative
 %end Derivatives

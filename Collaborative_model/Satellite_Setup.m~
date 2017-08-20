@@ -10,11 +10,12 @@ I=diag([Ixx;Iyy;Izz]);
 earth_radius = 6371; % (meters)
 
 %% IGRF Setup
-addpath('IGRF')
-load('IGRF11notmorm.mat'); % Load the structure containing the data for IGRF
-[igrf_G,igrf_H] = loadIGRFCoeffs(IGRF11notnorm); % Normalize the coefficients and store g_n^m and h_n^m in two matrices
-igrf_L = 10; % Upper limit for n in the approximation. for IRGF, it must be less or equal than 13
+load('IGRF11notnorm.mat')
+
+igrf_L = 10;
 igrf_tol = 1e-9; % Tolerance to avoid singularity at latitute = +- pi/2
+[igrf_G,igrf_H] = loadigrfcoefs(time);
+igrf_FRAME = 'ECEF'; % Frame in which the magnetic field will be expressed
 
 %% Aerodynamic drag propierties
 aerodrag_c_p = 0.02*[1;1;1]; % Vector C.O.Mass - C.O.Pressure. Expressed in body frame
