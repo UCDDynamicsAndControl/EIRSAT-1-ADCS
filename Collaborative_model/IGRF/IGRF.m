@@ -63,6 +63,7 @@ for n = 1:L
         Bphi = Bphi -(1/sth)*A*(m*(-g*smphi + h*cmphi)*P);
     end
 end
+Br = Br *1e-9; Btheta = Btheta *1e-9;  Bphi = Bphi *1e-9; % Convert from nT to T
 
 
 %% FRAME TRANSFORMATION
@@ -86,4 +87,4 @@ Bz = (Br*sin(lat)+Btheta*cos(lat));
 
 return;
 
-Bx = By *1e-9; By = By *1e-9;  Bz = Bz *1e-9; % Convert from nT to T
+
