@@ -30,20 +30,14 @@ block.InputPort(1).DirectFeedthrough = false;
 block.OutputPort(1).Dimensions = 3;
 
 block.SampleTimes = [0 0];%continuous sample time
-block.NumContStates=18;
 block.SimStateCompliance = 'DefaultSimState';
 
-block.RegBlockMethod('InitializeConditions', @InitializeConditions);
 block.RegBlockMethod('Outputs', @Outputs);    
-block.RegBlockMethod('Derivatives', @Derivatives);
 %end setup
- 
-function InitializeConditions(block) %Nothing to initialize
-%end InitializeConditions
 
 function Outputs(block)
 LLA = block.InputPort(1).Data; % long, lat, alt
-LST = block.InputPort(1).Data; % Local Sidereal Time
+LST = block.InputPort(2).Data; % Local Sidereal Time
 lon = LLA(1);
 lat = LLA(2);
 alt = LLA(3);
@@ -53,6 +47,3 @@ G_COEFS=block.DialogPrm(3).Data;
 H_COEFS=block.DialogPrm(4).Data;
 block.OutputPort(1).Data=IGRF(lat,lon,alt,L,tol,G_COEFS,H_COEFS,LST);
 %end Outputs
-
-function Derivatives(block) % There are not any derivative
-%end Derivatives

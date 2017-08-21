@@ -1,4 +1,4 @@
-function [Bx, By, Bz] = IGRF(lon, lat, alt, L, tol, G_coefs, H_coefs, LST)
+function Beta = IGRF(lon, lat, alt, L, tol, G_coefs, H_coefs, LST)
 
 %__________________________________________________________________________
 %
@@ -68,6 +68,7 @@ Br = Br *1e-9; Btheta = Btheta *1e-9;  Bphi = Bphi *1e-9; % Convert from nT to T
 
 %% FRAME TRANSFORMATION
 [Bx,By,Bz] = msph2inert(Br,Btheta,Bphi,lat,LST);
+Beta = [Bx, By, Bz];
 
 function [Bx,By,Bz] = msph2inert(Br,Btheta,Bphi,lat,LST)
 % Inputs ------------------------------------------------------------------
