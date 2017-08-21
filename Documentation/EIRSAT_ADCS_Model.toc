@@ -30,3 +30,4 @@
 \contentsline {subsection}{\numberline {6.8}Mode Select block}{5}
 \contentsline {subsection}{\numberline {6.9}Running Simulations}{5}
 \contentsline {section}{\numberline {7}Results}{6}
+\contentsline {section}{\numberline {8}Spherical Harmonics}{6}
