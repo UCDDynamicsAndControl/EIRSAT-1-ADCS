@@ -2,13 +2,17 @@
 
 {\bf Spherical Harmonics}
 
-The set of shperical harmonics is an orthonormal set of functions defined in the unit sphere. They are given as the angular part of the solution to the Laplace Equation in spherical coordinates. Here, it is important to identify the coordinates to be used, as, for instance, spherical coordinates have often two different interpretations, one, which is mainly used by physicist, uses the latitude [...] as one of the angular coordinates, while the other, 
+The set of shperical harmonics is an orthonormal set of functions defined in the unit sphere. They are given as the angular part of the solution to the Laplace Equation in spherical coordinates. Analogously  to how sines and cosines are used in harmonic analysis to represent periodic functions through Fourier Series, Spherical Harmonics may be used to define functions in the surface of a sphere.
+
+{\bf Spherical Coordinates}
+
+It is important to identify the coordinates to be used, as, for instance, spherical coordinates have often two different interpretations: one, which is mainly used by mathematicians, uses the latitude, being the angle between the position vector and the equatorial plane, as one of the angular coordinates; while the other, broadly employed by physicists, uses the co-latitude, defined as the angle between the position vector and the $z$ axis, thus being the complementary of the latitude. 
 
 Here, the spherical coordinates are taken to be
 \begin{itemize} 
 \item[] $r$, the radial distance from Earth's center
-\item[] $\phi$, the East longitude % Bounded between... % ...write nicer
-\item[] $\theta$, the co-latitude, defined to be $\theta = \frac{\pi}{2} - \theta'$, with $\theta'$ the latitude. % Bounded between... % ...write nicer
+\item[] $\phi$, the East longitude, bounded between $-\pi$ and $\pi$
+\item[] $\theta$, the co-latitude, defined to be $\theta = \frac{\pi}{2} - \theta'$, with $\theta'$ the latitude. Bounded between $0$ and $\pi$
 \end{itemize}
 
 
@@ -23,11 +27,10 @@ That is
 {\bm \beta} = -\nabla V
 \end{equation}
 
-
 Where $g_n^m$ and $h_n^m$ are the set of IGRF gaussian coefficients, published and revised every five years by the participating members of the IAGA (International Association
-of Geomagnetism and Aeronomy). The $12^{th}$ generation is here used, as the last revision by the time of this work. These coefficient also include the secular variation (SV), which bestow the model on the proper time dependence.
+of Geomagnetism and Aeronomy). The $12^{th}$ generation is here used, as the last revision by the time of this work. These coefficient also include the secular variation (SV), which bestow the model on the proper time dependence. Keping track of the change in the coefficients in $nT$ per year. The coefficients  for some epoch year are referred to as IGRF. When real data about the geomagnetic field becomes available so that some adjustements can be made, the model becomes definitive and changes its name to DGRF (Deffinitive geomagnetic reference field).
 
-$P_n^m(cos \theta)$ are the Schmidt normalized associated Legendree polynomials of degree n and order m
+$P_n^m(cos \theta)$ are the Schmidt normalized associated Legendre polynomials of degree n and order m
 
 One can find very effective, recursive ways of computing the Schmidt quasi-normalization factors, the Associated Legendre polynomials and its derivatives, as can be found on [J.Davis - Mathematical Modeling of Earth’s Magnetic Field] %\cite{...}
 
