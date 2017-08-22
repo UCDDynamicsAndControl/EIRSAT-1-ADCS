@@ -46,5 +46,4 @@ tol=block.DialogPrm(2).Data;
 G_COEFS=block.DialogPrm(3).Data;
 H_COEFS=block.DialogPrm(4).Data;
 block.OutputPort(1).Data=IGRF(lat,lon,alt,L,tol,G_COEFS,H_COEFS,LST);
->>>>>>> master:Collaborative_model/IGRF/IGRFSfun.m
 %end Outputs
