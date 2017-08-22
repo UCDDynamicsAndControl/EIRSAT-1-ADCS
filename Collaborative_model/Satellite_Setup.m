@@ -4,10 +4,7 @@ lx=0.10;ly=0.10;lz=0.20;
 Ixx=(1/12)*mass*((ly^2)+(lz^2));
 Iyy=(1/12)*mass*((lx^2+lz^2));
 Izz=(1/12)*mass*((lx^2+ly^2));
-I=diag([Ixx;Iyy;Izz]);
-
-%% Earth
-earth_radius = 6371; % (meters)
+I=diag([Ixx;Iyy;Izz]);  `
 
 %% IGRF Setup
 addpath('IGRF')
