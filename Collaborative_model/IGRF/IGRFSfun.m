@@ -41,15 +41,6 @@ LST = block.InputPort(2).Data; % Local Sidereal Time
 lon = LLA(1);
 lat = LLA(2);
 alt = LLA(3);
-<<<<<<< HEAD:Collaborative_model/IGRF11Sfun.m
-n=block.DialogPrm(1).Data;
-m=block.DialogPrm(2).Data;
-tol=block.DialogPrm(3).Data;
-Re=block.DialogPrm(4).Data;
-COEFS=block.DialogPrm(5).Data;
-FRAME=block.DialogPrm(6).Data;
-block.OutputPort(1).Data=IGRF11(lon,lat,alt,n,m,tol,Re,COEFS,FRAME);
-=======
 L=block.DialogPrm(1).Data;
 tol=block.DialogPrm(2).Data;
 G_COEFS=block.DialogPrm(3).Data;
