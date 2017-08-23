@@ -1,13 +1,15 @@
+%% Add folders to path
+addpath('IGRF','Actuators','Control','Disturbances','Dynamics','Graphics');
+
 %% Define Satellite properties 
 mass=2.6;
 lx=0.10;ly=0.10;lz=0.20;
 Ixx=(1/12)*mass*((ly^2)+(lz^2));
 Iyy=(1/12)*mass*((lx^2+lz^2));
 Izz=(1/12)*mass*((lx^2+ly^2));
-I=diag([Ixx;Iyy;Izz]);  `
+I=diag([Ixx;Iyy;Izz]);
 
 %% IGRF Setup
-addpath('IGRF')
 load('IGRF11notmorm.mat'); % Load the structure containing the data for IGRF
 [igrf_G,igrf_H] = loadIGRFCoeffs(IGRF11notnorm); % Normalize the coefficients and store g_n^m and h_n^m in two matrices
 igrf_L = 10; % Upper limit for n in the approximation. for IRGF, it must be less or equal than 13
@@ -25,7 +27,7 @@ altitude=405000;%similar altitude as ISS;
 %% initial state 
 
 wb_bi_init=[0,0,0];%init ang vel of body frame wrt inertial frame
-qb_o_init=angle2quat(0,0,0,'XYZ');
+qb_o_init=angle2quat(0.5,0,0,'XYZ');
 qb_i_init=angle2quat(0,0,0,'XYZ');
 qo_i_init=angle2quat(0,0,0,'XYZ');
 lat_init=0;

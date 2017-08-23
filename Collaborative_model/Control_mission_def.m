@@ -27,12 +27,22 @@ CtrlType=1;
 %       then Calculates the angular error between this and the torque 
 %       specified by the actuator: T_spec. If it less than tolerance (rad),
 %       it applies it. If not, it waits.
-ActType=5;
-control_tolerance = 45 * (pi/180);
+%ActType=5;
+%control_tolerance = 60 * (pi/180);
+
+%3 axis magnetorquer
+%   Computes the projection of T_spect into the plane normal to the B-field
+ActType=6;
+
+% Actuator setup
+%   Specify the area and number of windings of each magnetorquer
+nAx = 2e-9; %(m^2)
+nAy = 2e-9;
+nAz = 2e-9;
 
 %% Control setup
 
-k=1e-6;
+k=1e-9;
 m=max(diag(I));
 w=sqrt(k/m);
 G=nthorderWTF(w,2);
@@ -51,5 +61,5 @@ mode=3;%sun facing
 
 %q_1_ref=0;%reference for detumbling controller
 %q_2_ref=0;%define reference for zenith pointing (allign with orbit frame)
-q_3_ref=angle2quat(0,0,0,'XYZ');%Allign with inertial reference frame (point towards sun);
+q_3_ref=angle2quat(0.05,0,0,'XYZ');%Allign with inertial reference frame (point towards sun);
 q_ref=q_3_ref;

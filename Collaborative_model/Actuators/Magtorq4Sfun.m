@@ -1,4 +1,4 @@
-function MagtorqSfun(block)
+function Magtorq4Sfun(block)
 %MSFUNTMPL A Template for a MATLAB S-Function
 
 setup(block);
@@ -7,10 +7,10 @@ setup(block);
 
 function setup(block)
 
-  block.NumDialogPrms = 0;
+  block.NumDialogPrms = 3;
   % Register the number of ports.
   block.NumInputPorts  = 3;
-  block.NumOutputPorts = 2;
+  block.NumOutputPorts = 3;
   
   % Set up the port properties to be inherited or dynamic.
   block.SetPreCompInpPortInfoToDynamic;
@@ -45,6 +45,11 @@ function setup(block)
   block.OutputPort(2).Complexity  = 'Real';
   block.OutputPort(2).Dimensions  = 3;
   block.OutputPort(2).SamplingMode='Sample';
+  
+  block.OutputPort(3).DatatypeID  = 0; % double
+  block.OutputPort(3).Complexity  = 'Real';
+  block.OutputPort(3).Dimensions  = 3;
+  block.OutputPort(3).SamplingMode='Sample';
  
 
   block.SampleTimes = [0 0];
@@ -72,15 +77,27 @@ function setup(block)
 
 
 function Outputs(block)
+  nAx = block.DialogPrm(1).Data; % Coils data
+  nAy = block.DialogPrm(2).Data;
+  nAz = block.DialogPrm(3).Data;
   T_spec=block.InputPort(1).Data;%torque specified by controller
   B_real=block.InputPort(2).Data;%actual B vector
   B_meas=block.InputPort(3).Data;%measured B vector
-  m_b=(1/(norm(B_meas)^2))*(cross(B_meas,T_spec));%-pinv(SkewSym(B_meas))*T_spec;%magtorq dipole which will create the required torque
-  block.OutputPort(1).Data = cross(m_b,B_real);
-  block.OutputPort(2).Data = m_b;
-  
+  nA = [nAx,nAy,nAz];
+  [m_b,T_act,i] = Magtorq4(B_meas,B_real,T_spec,nA);
+  block.OutputPort(1).Data = T_act; % actuator torque
+  block.OutputPort(2).Data = m_b; % magnetic dipole
+  block.OutputPort(3).Data = i; % Current
 %endfunction
 
-    
- 
+function [m_b,T_act,i] = Magtorq4(B_meas,B_real,T_spec,nA)
+i = zeros(3,1);
+if norm(T_spec) < 1e-20; T_spec = [1,1,1]*1e-20; end % Avoid singularity
+e_m = cross(B_meas,T_spec)/(norm(B_meas)*norm(T_spec)); % unit vector in the direction of the dipole
+e_c = cross(B_meas,e_m)/norm(B_meas); % Unit vector in the direction we will apply torque
+T_act_meas = dot(T_spec,e_c)*e_c; % Projection into the B normal plane (measured B)
+m_b = cross(B_meas,T_act_meas)/(norm(B_meas)^2); % Required dipole (measured B)
+T_act = cross(m_b,B_real); % Actual produced torque
+i(1) = m_b(1)/nA(1); i(2) = m_b(2)/nA(2); i(3) = m_b(3)/nA(3); % Current
 
+%endfunction
