@@ -1,12 +1,14 @@
+%% ________________________________________________________________________
+% This script configures a simulation which uses Wave Based Control and 
+% three magnetorquers to do Sun pointing (Inertial reference). 
+% _________________________________________________________________________
 %% Controller selection 
 
 %WBC
 CtrlType=1;
 
-
 %PD
 %CtrlType=2;
-
 
 %% Actuator selection
 
@@ -14,7 +16,7 @@ CtrlType=1;
 %ActType=1;
 
 %3 axis magnetorquer
-%ActType=2;
+ActType=2;
 
 %2 axis magnetorquer
 %ActType=3;
@@ -32,13 +34,13 @@ CtrlType=1;
 
 %3 axis magnetorquer
 %   Computes the projection of T_spect into the plane normal to the B-field
-ActType=6;
+%ActType=6;
 
-% Actuator setup
+%% Actuator setup
 %   Specify the area and number of windings of each magnetorquer
-nAx = 2e-9; %(m^2)
-nAy = 2e-9;
-nAz = 2e-9;
+nAx = 0.2436;
+nAy = 0.2436;
+nAz = 0.2436;
 
 %% Control setup
 
@@ -63,3 +65,19 @@ mode=3;%sun facing
 %q_2_ref=0;%define reference for zenith pointing (allign with orbit frame)
 q_3_ref=angle2quat(0.05,0,0,'XYZ');%Allign with inertial reference frame (point towards sun);
 q_ref=q_3_ref;
+
+%% initial state 
+
+wb_bi_init=[0,0,0];%init ang vel of body frame wrt inertial frame
+qb_o_init=angle2quat(0.5,0,0,'XYZ');
+qb_i_init=angle2quat(0,0,0,'XYZ');
+qo_i_init=angle2quat(0,0,0,'XYZ');
+lat_init=0;
+long_init=0;
+
+x_0=transpose([wb_bi_init,qb_i_init]);%inital state vector of satelite 
+x_orbit_init=[long_init,lat_init,altitude,qb_o_init,qo_i_init];%initial orbit parameters
+
+%% Times
+T_orbit = 5559;
+T_stop = 10*T_orbit;
