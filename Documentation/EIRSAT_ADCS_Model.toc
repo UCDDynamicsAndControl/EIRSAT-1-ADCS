@@ -12,21 +12,21 @@
 \contentsline {subsubsection}{\numberline {4.3.1}Alternative representations of attitude and conversions}{4}
 \contentsline {subsection}{\numberline {4.4}Orbit Propagation}{5}
 \contentsline {subsection}{\numberline {4.5}Environment}{5}
-\contentsline {subsubsection}{\numberline {4.5.1}Magnetic Field}{8}
-\contentsline {subsubsection}{\numberline {4.5.2}Gravitational Field}{8}
-\contentsline {subsection}{\numberline {4.6}Sensor Models}{8}
-\contentsline {subsection}{\numberline {4.7}Actuator Models}{8}
-\contentsline {section}{\numberline {5}Controller Design}{8}
-\contentsline {section}{\numberline {6}Simulink Model Structure}{8}
-\contentsline {subsection}{\numberline {6.1}Dynamics block}{8}
-\contentsline {subsubsection}{\numberline {6.1.1}Spacecraft Dynamics}{8}
-\contentsline {subsubsection}{\numberline {6.1.2}Orbital Dynamics}{8}
-\contentsline {subsection}{\numberline {6.2}Environment block}{8}
-\contentsline {subsection}{\numberline {6.3}Disturbance block}{8}
-\contentsline {subsection}{\numberline {6.4}Sensor block}{8}
-\contentsline {subsection}{\numberline {6.5}Actuator block}{8}
-\contentsline {subsection}{\numberline {6.6}Controller block}{8}
-\contentsline {subsection}{\numberline {6.7}Reference block}{8}
-\contentsline {subsection}{\numberline {6.8}Mode Select block}{8}
-\contentsline {subsection}{\numberline {6.9}Running Simulations}{8}
-\contentsline {section}{\numberline {7}Results}{8}
+\contentsline {subsubsection}{\numberline {4.5.1}Magnetic Field}{5}
+\contentsline {subsubsection}{\numberline {4.5.2}Gravitational Field}{9}
+\contentsline {subsection}{\numberline {4.6}Sensor Models}{9}
+\contentsline {subsection}{\numberline {4.7}Actuator Models}{9}
+\contentsline {section}{\numberline {5}Controller Design}{9}
+\contentsline {section}{\numberline {6}Simulink Model Structure}{9}
+\contentsline {subsection}{\numberline {6.1}Dynamics block}{9}
+\contentsline {subsubsection}{\numberline {6.1.1}Spacecraft Dynamics}{9}
+\contentsline {subsubsection}{\numberline {6.1.2}Orbital Dynamics}{9}
+\contentsline {subsection}{\numberline {6.2}Environment block}{9}
+\contentsline {subsection}{\numberline {6.3}Disturbance block}{9}
+\contentsline {subsection}{\numberline {6.4}Sensor block}{9}
+\contentsline {subsection}{\numberline {6.5}Actuator block}{9}
+\contentsline {subsection}{\numberline {6.6}Controller block}{9}
+\contentsline {subsection}{\numberline {6.7}Reference block}{9}
+\contentsline {subsection}{\numberline {6.8}Mode Select block}{9}
+\contentsline {subsection}{\numberline {6.9}Running Simulations}{9}
+\contentsline {section}{\numberline {7}Results}{10}
