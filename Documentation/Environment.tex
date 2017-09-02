@@ -1,11 +1,13 @@
 % !TeX root = sections.tex
 \graphicspath{{figures/}}
-The geomagnetic field surrounding the Earth is used to control the spacecraft using ma
+The local geomagnetic field is used to control the spacecraft: by means of specifying the current that passes through the set of magnetorquers, a dipole moment is generated which interacts with such magnetic field, producing a torque in some specific direction.\\
+Therefore, it is of crucial importance to have a model of the magnetic field surrounding the Earth. In the present work, this model is generated using the International Geomagnetic Reference Field, which is estimated by the International Association of Geomagnetism and Aeronomy (IAGA). This model has already been used in other ADCS Simulations (See, for instance [Tudor], [Brathen]). The model is meticulously explained in [J. Davis, ''Mathematical modeling of earth’s magnetic field"], and we refer to this work for the interested reader.\\
 
+A remainder of the mathematical tools that are necessary for the development of this model is presented in what follows.\\
 
 {\bf Spherical Harmonics}
 
-The set of shperical harmonics is an orthonormal set of functions defined in the unit sphere. They are given as the angular part of the solution to the Laplace Equation in spherical coordinates. Analogously  to how sines and cosines are used in harmonic analysis to represent periodic functions through Fourier Series, Spherical Harmonics may be used to define functions in the surface of a sphere.
+The set of spherical harmonics is an orthonormal set of functions defined in the unit sphere. They are given as the angular part of the solution to the Laplace Equation in spherical coordinates. Analogously to how sines and cosines are used in harmonic analysis to represent periodic functions through Fourier Series, Spherical Harmonics may be used to define functions on the surface of a sphere.
 
 {\bf Spherical Coordinates}
 
@@ -14,8 +16,8 @@ It is important to identify the coordinates to be used, as, for instance, spheri
 Here, the spherical coordinates are taken to be
 \begin{itemize} 
 \item[] $r$, the radial distance from Earth's centre
-\item[] $\phi$, the East longitude, bounded between $-\pi$ and $\pi$
-\item[] $\theta$, the co-latitude, defined to be $\theta = \frac{\pi}{2} - \theta'$, with $\theta'$ the latitude. $\theta \in \left[0,\pi\right]$ %Bounded between $0$ and $\pi$
+\item[] $\phi \in \left[-\pi,\pi\right]$ the East longitude.
+\item[] $\theta \in \left[0,\pi\right]$, the co-latitude, defined to be $\theta = \frac{\pi}{2} - \theta'$, with $\theta'$ the latitude. 
 \end{itemize}
 
 The magnetic field is given by the negative gradient of the potential $V$ defined for $r \geq R_e$, and given by the spherical harmonic approximation
@@ -29,14 +31,14 @@ That is
 {\bm \beta} = -\nabla V
 \end{equation}
 
-Where $g_n^m$ and $h_n^m$ are the set of IGRF gaussian coefficients, published and revised every five years by the participating members of the IAGA (International Association
+Where $g_n^m$ and $h_n^m$ are the set of IGRF gaussian coefficients, published and revised every five years by the participating members of IAGA (International Association
 of Geomagnetism and Aeronomy). The $12^{th}$ generation is here used, as the last revision by the time of this work. These coefficient also include the secular variation (SV), which bestow the model on the proper time dependence. Keping track of the change in the coefficients in $nT$ per year. The coefficients  for some epoch year are referred to as IGRF. When real data about the geomagnetic field becomes available so that some adjustements can be made, the model becomes definitive and changes its name to DGRF (Deffinitive geomagnetic reference field).
 
-$P_n^m(cos \theta)$ are the Schmidt normalized associated Legendre polynomials of degree n and order m
+$P_n^m(\nu)$ are the Schmidt normalized associated Legendre polynomials of degree n and order m
 
 One can find very effective, recursive ways of computing the Schmidt quasi-normalization factors, the Associated Legendre polynomials and its derivatives, as can be found on [J.Davis - Mathematical Modeling of Earth’s Magnetic Field] %\cite{...}
 
-The three components of the magnetic field in $r$, $\phi$ and $\theta$ directions can be found in terms of the partial derivatives of \ref{eq:igrf_potential}
+The three components of the magnetic field in $r$, $\phi$ and $\theta$ directions can be found in terms of the partial derivatives of (\ref{eq:igrf_potential})
 
 
 \begin{equation} \label{eq:local_sph_cpmt}
@@ -103,11 +105,11 @@ g_{n,m} &= \Gamma_{n,m}\ g_n^m \\ h_{n,m} &= \Gamma_{n,m}\  h_n^m
 \end{aligned}
 \end{equation}
 
-So that the recursive algorithm for the Schmidt quasi-normalization coefficients ([James R.Wertz. Spacecraft Attitude Determination and Control]) is ran only once for each pair $(m,n)$.
+So that the recursive algorithm for calculating the Schmidt quasi-normalization coefficients ([James R.Wertz. Spacecraft Attitude Determination and Control]) is ran only once for each pair $(m,n)$.
 
 \textbf{Transformation to inertial reference frame}
 
-After the three components of the magnetic field $\beta_r$, $\beta_{\theta}$ and $\beta_{\phi}$ from ()\ref{eq:local_sph_cpmt}) in local spherical coordinates are calculated, we aim to express them in terms of an Earth centred inertial reference frame. This transformation is given by \ref{eq:transf_magnt}, and it is illustrated in figure~\ref{fig:transf_magnt}
+After the three components of the magnetic field $\beta_r$, $\beta_{\theta}$ and $\beta_{\phi}$ from (\ref{eq:local_sph_cpmt}) in local spherical coordinates are calculated, we aim to express them in terms of an Earth centred inertial reference frame. This transformation is given by (\ref{eq:transf_magnt}). % and is illustrated in figure~\ref{fig:transf_magnt}.
 
 \begin{equation}
 \begin{aligned} \label{eq:transf_magnt}
@@ -117,13 +119,15 @@ After the three components of the magnetic field $\beta_r$, $\beta_{\theta}$ and
 \end{aligned}
 \end{equation}
 
-\begin{figure} \label{fig:transf_magnt}
-	\centering
-	\includegraphics[width=0.4\textheight]{}
-	\caption{Frame transformation between local spherical and inertial reference frame}
-\end{figure}
+%\begin{figure} \label{fig:transf_magnt}
+%	\centering
+%	\includegraphics[width=0.4\textheight]{}
+%	\caption{Frame transformation between local spherical and inertial reference frame}
+%\end{figure}
 
 {\bf Recursive formulas for Gaussian normalized Legendre polynomials, its derivatives and Schmidt quasi-normalization factors}
+
+These recursive formulas are used for a more effective computation of the Associated Legendre polynomials and their normalizations. Here they are only presented, and we refer to ([James R.Wertz. Spacecraft Attitude Determination and Control]) for the reader interested in their derivation.
 
 {\it Associated Legendre polynomials and derivatives}
 \begin{equation} \label{eq:Legendre_Recursive}
@@ -150,8 +154,7 @@ P^{n,m}(\theta) &= cos(\theta)P^{n-1,m} - K^{n,m}P^{n-2,m}
 \Gamma_{n,0} &= \dfrac{2n-1}{n}\Gamma_{n-1,0}\\
 \Gamma_{n,m} &= \sqrt{\dfrac{(n-m+1)(\delta_m^1+1)}{n+m}}\Gamma_{n,m-1}
 \end{aligned}
-\end{equation}
+\end{equation} ~\\
+~Where $\delta_j^î$ is the Kronecker delta.~\\
 
-
-\footnote{Note the use of upper and subscript notation here to distinguish between Regular, Associated, and Schmidt quasi-normalized Legendre polynomials}
 

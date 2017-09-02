@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.26)  2 SEP 2017 12:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.26)  2 SEP 2017 17:35
 entering extended mode
 **./EIRSAT_ADCS_Model.tex
 (EIRSAT_ADCS_Model.tex
@@ -1411,62 +1411,66 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.15}).
 \tf@toc=\write4
 \openout4 = `EIRSAT_ADCS_Model.toc'.
 
- (sections.tex [2] [3] (Environment.tex [4] [5]
-Overfull \hbox (0.17374pt too wide) in paragraph at lines 71--74
+ (sections.tex [2] [3] (Environment.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+
+ []
+
+[5] [6]
+Overfull \hbox (0.17374pt too wide) in paragraph at lines 75--78
 \OT1/cmr/m/n/10.95 used nor-mal-iza-tions are the Gaus-sian nor-mal-iza-tion an
 d the Schmidt quasi-normalization
  []
 
-[6] [7]
-<figures/frame_transformation_magnetic_tmp.jpeg, id=43, 4047.12pt x 3035.34pt>
-File: figures/frame_transformation_magnetic_tmp.jpeg Graphic file (type jpg)
-
-<use figures/frame_transformation_magnetic_tmp.jpeg>
-Package pdftex.def Info: figures/frame_transformation_magnetic_tmp.jpeg used on
- input line 120.
-(pdftex.def)             Requested size: 236.60846pt x 177.43468pt.
-
-Overfull \hbox (0.93849pt too wide) in paragraph at lines 124--125
+[7]
+Overfull \hbox (0.93849pt too wide) in paragraph at lines 128--129
 []\OT1/cmr/bx/n/10.95 Recursive for-mu-las for Gaus-sian nor-mal-ized Leg-en-dr
 e poly-no-mi-als, its deriva-
  []
 
-) [8 <./figures/frame_transformation_magnetic_tmp.jpeg>]) [9] [10]
-(EIRSAT_ADCS_Model.aux) ) 
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 157--159
+
+ []
+
+) [9]) [10] (EIRSAT_ADCS_Model.aux) ) 
 Here is how much of TeX's memory you used:
- 26204 strings out of 493323
- 677797 string characters out of 3128279
- 832215 words of memory out of 3000000
- 29232 multiletter control sequences out of 15000+200000
- 16672 words of font info for 58 fonts, out of 3000000 for 9000
+ 26174 strings out of 493323
+ 677314 string characters out of 3128279
+ 833203 words of memory out of 3000000
+ 29215 multiletter control sequences out of 15000+200000
+ 13471 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,9n,128p,731b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\vicctorio\AppData\Local\MiKTeX\2.9\fonts\pk
-\ljfour\jknappen\ec\dpi600\tcrm1095.pk><C:/Users/vicctorio/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/vicctorio/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Us
-ers/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmbx8.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/vicctorio/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/vicctorio
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:
-/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmmib10.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmr10.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/vicctorio/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/viccto
-rio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><
-C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmr8.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmr9.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/vicctorio/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/vicctor
-io/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-
-Output written on EIRSAT_ADCS_Model.pdf (10 pages, 2018471 bytes).
+ <C:\Users\vicctorio\AppData\Local\MiKTeX\
+2.9\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1095.pk><C:/Users/vicctorio/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/v
+icctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx1
+2.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmbx8.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/vicctorio/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/vicctorio/App
+Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Use
+rs/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mmi8.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmib10.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/vicctorio/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/vicctorio/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/
+Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmr6.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb><C:/Users/vicctorio/AppData/Local/Programs/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/vicctorio/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/vicctorio/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on EIRSAT_ADCS_Model.pdf (10 pages, 217566 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
+ 107 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
