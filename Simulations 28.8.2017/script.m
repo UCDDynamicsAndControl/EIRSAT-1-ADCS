@@ -46,7 +46,7 @@
 % PREAMBLE (This code runs only once)
 % Solver setup
 T_orbit = 5559;
-T_stop = 1*T_orbit;
+T_stop = 2*T_orbit;
 Rel_tol = 1e-3;
 
 % Add everything inside 'collaborative_model' to Matlab path
@@ -111,9 +111,9 @@ for i_plot = 1:13 %Plots
     figure;
     hold on
     plot(TIME_n_orb,DATA(:,j_plot:j_plot+k_plot-1)); % Make plots
-    plot([0,T_stop],[0,0],'b--');
+    %plot([0,T_stop],[0,0],'b--');
     ylabel(y_labels_array{i_plot}); % x axis label
-    %xlabel('time (number of orbits)'); % y axis label
+    xlabel('time (number of orbits)'); % y axis label
     title_name = titles_array{i_plot};
     title(title_name); % title
     img_path_name = ['/',folder_name,'/',title_name,'.png'];
@@ -121,6 +121,12 @@ for i_plot = 1:13 %Plots
     j_plot = j_plot + k_plot;
     hold off
 end  
+plot(TIME_n_orb,T_dist);
+ylabel('T (Nm)');
+xlabel('time (number of orbits)');
+title('Disturbances');
+img_path_name = ['/',folder_name,'/','Disturbances','.png'];
+saveas(figure(1),[pwd img_path_name]);
 % Write .txt file with some info
 file_name = [folder_name,'_info.txt'];
 out = fullfile(folder_name,file_name);
