@@ -36,10 +36,15 @@ ActType=6;
 
 % Actuator setup
 %   Specify the area and number of windings of each magnetorquer
-nAx = 2e-9; %(m^2)
-nAy = 2e-9;
-nAz = 2e-9;
+% nAx = 2e-9; %(m^2)
+% nAy = 2e-9;
+% nAz = 2e-9;
 
+
+nAx = 0.48; %Values similar to ClydeSpace's torquers
+nAy = 0.48;
+nAz = 0.48;
+nA=[nAx;nAy;nAz];
 %% Control setup
 
 k=1e-9;

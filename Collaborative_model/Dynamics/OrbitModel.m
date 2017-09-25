@@ -32,7 +32,7 @@ Rb_o=transpose(Ro_b);%from orbit to body frame
 
 
 % define the angular velocity of the body frame wrt orbital frame.
-omegab_ob=wb_bi-(Rb_o*omega_orbit);
+omegab_ob=wb_bi-(Rb_o*(omega_orbit));
 S_oi=SkewSym(eta_oi);
 
 %% Differential Equations of Motion
@@ -42,8 +42,8 @@ S_oi=SkewSym(eta_oi);
 n_o_dot=-0.5*transpose(eta_o)*omegab_ob;
 eta_o_dot=0.5*((n_o*eye(3))+S_o)*omegab_ob;
 %q representing rotation between orbital n inertail frame
-noidot=-0.5*transpose(eta_oi)*omega_orbit;
-etaoidot=0.5*((n_oi*eye(3))+S_oi)*omega_orbit;
+noidot=-0.5*transpose(eta_oi)*(omega_orbit);
+etaoidot=0.5*((n_oi*eye(3))+S_oi)*(omega_orbit);
 
 long_dot=omega_orbit(2);
 lat_dot=sqrt((omega_orbit(1)^2)+(omega_orbit(3)^2));

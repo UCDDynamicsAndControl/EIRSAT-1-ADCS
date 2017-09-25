@@ -1,5 +1,9 @@
 function Magtorq2Sfun(block)
-%MSFUNTMPL A Template for a MATLAB S-Function
+%Magtorq2Sfun a block which converts a torq specified by a controller to
+%one created by magnetorquer. Give a desired torque as an input. the dipole
+%which creates such a torque is calculated. and used to calculate the
+%output torque. the output torque is the component of the input torque in
+%the plane perpendicular to B
 
 setup(block);
   
@@ -9,7 +13,7 @@ function setup(block)
   % Register the number of paramenters.
   block.NumDialogPrms = 3;
   % Register the number of ports.
-  block.NumInputPorts  = 3;
+  block.NumInputPorts  = 4;
   block.NumOutputPorts = 3;
   
   % Set up the port properties to be inherited or dynamic.
@@ -34,6 +38,12 @@ function setup(block)
   block.InputPort(3).Dimensions  = 3;
   block.InputPort(3).DirectFeedthrough = false;
   block.InputPort(3).SamplingMode='Sample';
+  
+  block.InputPort(4).DatatypeID  = 0;  % double
+  block.InputPort(4).Complexity  = 'Real';
+  block.InputPort(4).Dimensions  = 4;
+  block.InputPort(4).DirectFeedthrough = false;
+  block.InputPort(4).SamplingMode='Sample';
   
   % Override the output port properties.
   block.OutputPort(1).DatatypeID  = 0; % double
@@ -84,7 +94,16 @@ function Outputs(block)
   T_spec=block.InputPort(1).Data;% torque specified by controller
   B_real=block.InputPort(2).Data;% actual B vector
   B_meas=block.InputPort(3).Data;% measured B vector
-  m_b=(1/(norm(B_meas)^2))*(cross(B_meas,T_spec));%-pinv(SkewSym(B_meas))*T_spec;%magtorq dipole which will create the required torque
+  q=block.InputPort(4).Data;
+  n=q(1);
+  eta=q(2:3);
+  S=SkewSym(eta);
+  Rotm=transpose(eye(3)+(2*((n*S)+(S^2))));
+  B_real=Rotm*B_real;
+  B_meas=Rotm*B_meas;
+  
+  
+  m_b=(1/(norm(B_meas)^2))*(cross(B_meas,T_spec));%-pinv(SkewSym(B_meas))*T_spec;
   i(1) = m_b(1)/nAx; i(2) = m_b(2)/nAy; i(3) = m_b(3)/nAz;
   block.OutputPort(1).Data = cross(m_b,B_real); % Actuator Torque
   block.OutputPort(2).Data = m_b; % Magnetic dipole
