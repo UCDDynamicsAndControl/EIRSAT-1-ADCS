@@ -66,5 +66,5 @@ mode=3;%sun facing
 
 %q_1_ref=0;%reference for detumbling controller
 %q_2_ref=0;%define reference for zenith pointing (allign with orbit frame)
-q_3_ref=angle2quat(0.05,0,0,'XYZ');%Allign with inertial reference frame (point towards sun);
+q_3_ref=angle2quat(90*pi/180,0,0,'XYZ');%Allign with inertial reference frame (point towards sun);
 q_ref=q_3_ref;

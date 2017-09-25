@@ -19,7 +19,7 @@ aerodrag_c_p = 0.02*[1;1;1]; % Vector C.O.Mass - C.O.Pressure. Expressed in body
 aerodrag_A_d = 0.2*0.1*sqrt(2); % Aerodynamic area.
 
 %% Define orbit properties
-omega_orbit=[0,-7.67/(401.1+6371),0];% Ang vel of orbit frame wrt inertial
+omega_orbit=[0;-7.67/(401.1+6371);0];% Ang vel of orbit frame wrt inertial
 % frame. give the same orbit period as ISS, buit is orbitng about equator
 altitude=405000;%similar altitude as ISS;
 
@@ -40,9 +40,9 @@ qb_o_init=quatmultiply(quatconj(quat_error),qb_o_init);
 qb_i_init=quatmultiply(quatconj(quat_error),qb_i_init);
 
 %init ang vel of body frame wrt inertial frame
-wb_bi_init=quatrotate(qb_o_init,omega_orbit);%%match vel with orbit frm. quat rotation is in event that body and orbit frame are not alligned.
+wb_bi_init=quatrotate(qb_o_init,transpose(omega_orbit));%%match vel with orbit frm. quat rotation is in event that body and orbit frame are not alligned.
 
-wb_bi_init=[1*pi/180,1*pi/180,1*pi/180];%wb_bi_init+
+wb_bi_init=wb_bi_init;%+[1*pi/180,1*pi/180,1*pi/180];%
 
-x_0=transpose([wb_bi_init,qb_i_init]);%inital state vector of satelite 
+x_0=[(wb_bi_init),qb_i_init];%inital state vector of satelite 
 x_orbit_init=[long_init,lat_init,altitude,qb_o_init,qo_i_init];%initial orbit parameters
