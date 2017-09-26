@@ -1,1 +1,0 @@
-# EIRSAT-1-ADCS
