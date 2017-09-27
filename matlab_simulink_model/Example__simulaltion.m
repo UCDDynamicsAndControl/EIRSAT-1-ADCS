@@ -6,18 +6,18 @@
 %% Controller selection 
 
 %WBC
-CtrlType=1;
+%CtrlType=1;
 
 %PD
-%CtrlType=2;
+CtrlType=2;
 
 %% Actuator selection
 
 %Ideal torque
-%ActType=1;
+ActType=1;
 
 %3 axis magnetorquer
-ActType=2;
+%ActType=2;
 
 %2 axis magnetorquer
 %ActType=3;
