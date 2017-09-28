@@ -1,0 +1,44 @@
+% !TEX root = EIRSAT_ADCS_Model.tex
+
+\section{Mathematical Modelling}
+\subsection{Co-ordinate systems and Reference Frames}
+
+The spacecraft moves in an inertial reference frame $N$ with associated cartesian coordinate system $OXYZ$ where $\mathbf{n_1}$, $\mathbf{n_2}$ and $\mathbf{n_3}$ are unit vectors along the $X$, $Y$ and $Z$ axes respectively. This coordinate system is centred at the center of the earth, $\mathbf{n_3}$ is normal to the equatorial plane and parallel to the earth rotational axis, pointing towards north pole, $\mathbf{n_1}$ points towards the vernal equinox, and $\mathbf{n_2}$ completes the right-handed orthonormal frame.
+
+A second reference frame $A$ is attached to the spacecraft rigid body with coordinate system $Cxyz$ where $C$ is the mass centre of the rigid body and $\mathbf{a_1}$, $\mathbf{a_2}$ and $\mathbf{a_3}$ are unit vectors along the $x$, $y$ and $z$ axes respectively.
+
+A third reference frame, named orbital frame, and here denoted $O$, is spanned by the unit vectors $\mathbf{o_1}$, $\mathbf{o_2}$ and $\mathbf{o_3}$, and centred at the satellite's center of mass. The vector $\mathbf{o_3}$ constantly points to the Earth's center, whereas $\mathbf{o_2}$ aligns with the orbit angular momentum. $\mathbf{o_2}$ is the cross product of $\mathbf{o_3}$ and $\mathbf{o_1}$, completing the three axis orthonormal frame.
+
+\subsection{Satellite Dynamics}
+
+EIRSAT-1 is modelled as a single rigid body with 6-DOF (degrees of freedom).
+The satellite has mass $m$ and inertia tensor $I$ in the body fixed coordinate system
+
+\subsection{Rotational Kinematics}
+
+The attitude of the spacecraft is described by quaternions.
+
+\subsubsection{Alternative representations of attitude and conversions}
+The orientation of the spacecraft may also be described using a Direction Cosine Matrix.
+
+The orientation of the spacecraft may also be described using Euler angles.
+Starting with the body-fixed $oxyz$ axes aligned with the $OXYZ$ axes, the body undergoes a sequence of rotations by angles $\theta_3$, $\theta_2$ and $\theta_1$ about the body-fixed $z$ (yaw), $y$ (pitch) and $x$ (roll) axes respectively to reach its final orientation.
+
+The DCM (Direction Cosine Matrix) is then described by equation \ref{eq:dcm}.
+\begin{equation} \label{eq:dcm}
+C = 
+\end{equation}
+
+\subsection{Orbit Propagation}
+
+\subsection{Environment}
+	\input{Environment.tex}
+\subsubsection{Magnetic Field}
+\subsubsection{Gravitational Field}
+
+\subsection{Sensor Models}
+
+\subsection{Actuator Models}
+
+\section{Controller Design}
+
