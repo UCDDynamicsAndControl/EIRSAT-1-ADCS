@@ -8,7 +8,7 @@ setup(block);
 function setup(block)
   
   % Register the number of parameters
-  block.NumDialogPrms = 4;
+  block.NumDialogPrms = 3;
   % Register the number of ports.
   block.NumInputPorts  = 3;
   block.NumOutputPorts = 3;
@@ -78,10 +78,10 @@ function setup(block)
 
 
 function Outputs(block)
-  nAx = block.DialogPrm(2).Data; % Coils data
-  nAy = block.DialogPrm(3).Data;
-  nAz = block.DialogPrm(4).Data;
-  tolerance=block.DialogPrm(1).Data; % Control tolerance, from parameters
+  nAx = block.DialogPrm(1).Data; % Coils data
+  nAy = block.DialogPrm(2).Data;
+  nAz = block.DialogPrm(3).Data;
+  %tolerance=block.DialogPrm(1).Data; % Control tolerance, from parameters
   T_spec=block.InputPort(1).Data;% Torque specified by controller
   B_real=block.InputPort(2).Data;% Actual B vector
   B_meas=block.InputPort(3).Data;% Measured B vector

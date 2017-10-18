@@ -67,8 +67,8 @@ Br = Br *1e-9; Btheta = Btheta *1e-9;  Bphi = Bphi *1e-9; % Convert from nT to T
 
 
 %% FRAME TRANSFORMATION
-[Bx,By,Bz] = msph2inert(Br,Btheta,Bphi,lat,LST);
-Beta = [Bx, By, Bz];
+%[Bx,By,Bz] = msph2inert(Br,Btheta,Bphi,lat,LST);
+Beta = [Btheta,Bphi,Br];%[Bx, By, Bz];
 
 function [Bx,By,Bz] = msph2inert(Br,Btheta,Bphi,lat,LST)
 % Inputs ------------------------------------------------------------------
