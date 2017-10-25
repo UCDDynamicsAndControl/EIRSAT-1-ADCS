@@ -1,5 +1,5 @@
 %% Add folders to path
-addpath('IGRF','Actuators','Control','Disturbances','Dynamics','Graphics');
+addpath('Environment/IGRF','Actuators','Control','Disturbances','Dynamics','Graphics');
 
 %% Define Satellite properties 
 mass=2.6;

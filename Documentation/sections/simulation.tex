@@ -1,11 +1,27 @@
-% !TEX root = EIRSAT_ADCS_Model.tex
+% !TEX root = ../EIRSAT_ADCS_Model.tex
 
 \section{Matlab-Simulink Model}
 Components:
 
 \subsection{Dynamics}
 \subsubsection{Spacecraft Dynamics Block in Simulink} %All
-Inputs
+
+\begin{table}[htp]
+\caption{Spacecraft Dynamics Block Signals and Parameters \label{tab:sc-dyn-blk}}
+\centering
+\begin{tabular}{lllll}
+\hline
+& Name & Symbol & Dimension & Unit \\
+\hline
+Input & Total Torque & $\vect{\tau}$ & $3 \times 1$ & \\
+Output & Spacecraft angular velocity (Body frame) & $\vect{\omega_b}$ & $3 \times 1$ & \\
+Output & Attitude quaternion (Body relative to Inertial) & $\quat{q_{b/i}}$ & $3 \times 1$ & \\
+Parameter & Spacecraft inertia tensor (Body frame) & $\tens{I}$ & $3 \times 3$ & \si{kg.m^2} \\
+
+\hline
+\end{tabular}
+\end{table}%
+
 
 Outputs
 
@@ -24,7 +40,6 @@ Simulation Setup File
 Output Text file
 
 \subsection{Post processing}
-
 
 
 \section{Results}

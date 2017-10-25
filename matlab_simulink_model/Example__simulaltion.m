@@ -3,6 +3,9 @@
 % three magnetorquers to do Sun pointing (Inertial reference). 
 % _________________________________________________________________________
 
+orbit_model=1;
+dynamics_model=1
+
 %% Controller selection 
 
 %WBC
