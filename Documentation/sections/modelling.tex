@@ -97,7 +97,7 @@ Starting with the body-fixed $oxyz$ axes aligned with the $OXYZ$ axes, the body 
 \begin{figure}
 	\centering
 	%\includegraphics[]{}
-	\caption{Euler Angles. $theta_3$, $theta_2$, $theta_3$  Rotation sequence}
+	\caption{Euler Angles. $\theta_3$, $\theta_2$, $\theta_3$  Rotation sequence}
 	\label{fig:EulerAngles}
 \end{figure}
 
@@ -128,7 +128,7 @@ The definition of a quaternion associated with a transformation in 3D is given b
 \end{equation}
 From the definition, it follows that the four scalar parts which form the quaternion are mutually dependent: $ \eta^2 + \epsilon_1^2 + \epsilon_2^2 + \epsilon_3^2 = 1$\\
 
-Both representations Euler Axis/Principal Angle and Quaternions are singularity-free. However, as was already pointed out, the advantages of using Quaternions are mainly related to computational issues. For instance, the rotation matrix is derived from the vector and scalar part of the quaternion without the need for trigonometric calculations, which are generally computationally expensive.
+Both representations Euler Axis/Principal Angle and Quaternions are singularity-free. However, as was already pointed out, using Quaternions offer advantages that are mainly related to computational issues. For instance, the rotation matrix is directly derived from the vector and scalar part of the quaternion without the need for trigonometric calculations, which are generally computationally expensive.
 \begin{equation}
 A_X^{X'} = (\eta^2 - \pmb{\epsilon}^T \pmb{\epsilon}) I +
 2\pmb{\epsilon}\pmb{\epsilon}^T - 2\eta Sk(\pmb{\epsilon})
@@ -142,7 +142,18 @@ u_3 & 0 & -u_1 \\
 -u_2 & u_1 & 0
 \end{array} \right)
 \end{equation}
-Such that $\mathbf{u}\times\mathbf{v} = Sk(\mathbf{u})\mathbf{v}$
+Such that $\mathbf{u}\times\mathbf{v} = Sk(\mathbf{u})\mathbf{v}$.\\
+
+Moreover, the quaternion is also easily expressed in terms of the elements $a_{uj}$ of the direction cosine matrix $A_X^{X'}$.
+	
+\begin{equation}
+\begin{aligned}
+\eta & = \frac{\sqrt{1+tr\left(A_X^{X'}\right)}}{2}\\
+	\epsilon_1 & = \frac{a_{23} - a_{32}}{4\eta}\\
+	\epsilon_2 & = \frac{a_{31} - a_{13}}{4\eta}\\
+	\epsilon_3 & = \frac{a_{12} - a_{21}}{4\eta}
+	\end{aligned}
+\end{equation}
 
 
 Every attitude representation implies only three independent parameters
