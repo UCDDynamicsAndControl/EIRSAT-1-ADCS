@@ -1,0 +1,106 @@
+% !TEX root = EIRSAT_ADCS_Model.tex
+
+\section{Mathematical Modelling}
+\subsection{Co-ordinate systems and Reference Frames}
+
+The spacecraft moves in an inertial reference frame $N$ with associated Cartesian coordinate system $O_{XYZ}$ where $\left\{ \mathbf{n_1}, \mathbf{n_2}, \mathbf{n_3} \right\}$ is a set of unit vectors along the $X$, $Y$ and $Z$ axes respectively. This coordinate system is centred at the centre of the Earth, $\mathbf{n_3}$ is normal to the equatorial plane (hence parallel to the earth rotational axis), and points towards north pole, $\mathbf{n_1}$ points towards the vernal equinox, and $\mathbf{n_2}$ completes the right-handed orthonormal frame.\\
+Recall that $N$ is considered an inertial reference, neglecting the rotation of the Earth around the sun, and that of the sun around bigger objects.
+
+A second reference frame $A$, is attached to the spacecraft rigid body with coordinate system $C_{xyz}$ where $C$ is the mass centre of the rigid body and $ \left\{\mathbf{a_1}, \mathbf{a_2}, \mathbf{a_3} \right\}$ are unit vectors along the $x$, $y$ and $z$ axes respectively. It will be assumed that the three axes of the body fixed frame are aligned with the principal axes of inertia of the satellite. 
+
+A third reference frame, named orbital frame, and here denoted $O$, is spanned by the unit vectors $\left\{\mathbf{o_1}, \mathbf{o_2}, \mathbf{o_3} \right\}$, and centred at the satellite's centre of mass. The vector $\mathbf{o_3}$ constantly points to the Earth's centre, whereas $\mathbf{o_2}$ aligns with the orbit angular momentum. $\mathbf{o_2}$ is the cross product of $\mathbf{o_3}$ and $\mathbf{o_1}$, completing the three axis orthonormal frame.
+
+\subsection{Satellite Dynamics}d
+
+EIRSAT-1 is modelled as a single rigid body with six degrees of freedom: three rotational and three translational.\\
+The satellite has mass $m$ and inertia tensor $\mathbf{I}$ in the body fixed coordinate system $O$. From the assumption that $O$ is aligned with the principal axes of inertia of the satellite, it follows that is a $3\times 3$ diagonal matrix.
+
+\subsection{Rotational Kinematics}
+
+The attitude of the spacecraft is described using unit quaternions. These avoid singularities that may arise when other approaches such as DCM (Direction Cosine Matrix) or Euler Angle - Euler Axis are used. Due to the lack of singularities, unit quaternions are widely employed through the literature for computational purposes in ADCS design and simulations. See, for instance ([???]).
+
+\subsubsection{Alternative representations of attitude and conversions}
+Rotations in three-dimensional Euclidean space may be described in a number of ways. For instance, let $\mathbf{r}^X$ be a vector expressed as a linear combination of the unit vectors that span the right - handed orthonormal frame $X = \left\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3 \right\}$. That is
+\begin{equation}
+\mathbf{r} = \sum_{i=1}^{3}r_i \mathbf{e_i}
+\end{equation}
+
+The same vector can be represented by a linear combination of unit vectors spanning an alternative othonormal frame {$X' = \left\{\mathbf{e}'_1, \mathbf{e}'_2, \mathbf{e}'_3 \right\}$}
+
+\begin{equation}
+\mathbf{r} = \sum_{i=1}^{3}r'_i \mathbf{e'_i}
+\end{equation}
+
+In vector form:
+
+\begin{equation}
+	\mathbf{r} = \left(\begin{array} {c c c}\bfe_1 & \bfe_2 & \bfe_3 \end{array} \right) \left( \begin{array}{c} r_1\\ r_2\\\ r_3 \end{array}\right) =
+	\left( \begin{array} {c c c}\bfe'_1 & \bfe'_2 & \bfe'_3 \end{array} \right) \left( \begin{array}{c} r'_1\\ r'_2\\\ r'_3 \end{array}\right) =
+\end{equation}
+
+Each one of the components $r'_i$ is the projection (ie. vector product) of the vector $\mathbf{r}$ into $\bfe'_i$. That is $r'_i = \mathbf{r} \cdot \bfe'_i =  \sum_{j=1}^{3} (r_j \bfe_j)\cdot \bfe'_i = \sum_{j=1}^{3} (\bfe'_i \cdot \bfe_j) r_j$. In matrix form:
+\begin{flushright}
+	
+\end{flushright}
+\begin{equation}
+\left( \begin{array}{c} r'_1 \\ r'_2 \\ r'_3 \end{array} \right) = 
+\left( \begin{array}{c c c}  
+\bfe'_1\cdot\bfe_1 & \bfe'_1\cdot\bfe_2 & \bfe'_1\cdot\bfe_3 \\
+\bfe'_2\cdot\bfe_1 & \bfe'_2\cdot\bfe_2 & \bfe'_2\cdot\bfe_3 \\
+\bfe'_3\cdot\bfe_1 & \bfe'_3\cdot\bfe_2 & \bfe'_3\cdot\bfe_3 \end{array} \right) 
+\left( \begin{array}{c} r_1\\ r_2 \\ r_3 \end{array} \right)
+\end{equation}
+
+There exists a matrix $\mathbf{A}_X^{X'} \in\ SO(3)$ that allows the transformation to the frame {$X' = \left\{\mathbf{e}'_1, \mathbf{e}'_2, \mathbf{e}'_3 \right\}$}. That is to say
+\begin{align}
+\mathbf{r}^{X'} &= \mathbf{A}_X^{X'} \mathbf{r}^{X}\\
+\mathbf{r}^{X'} &= \sum_{i=1}^{3} a_{ij} r_j^X \mathbf{e}'_i
+\end{align}
+With
+\begin{equation}
+\mathbf{A}_X^{X'} =
+\left( \begin{array}{c c c}  
+\bfe'_1\cdot\bfe_1 & \bfe'_1\cdot\bfe_2 & \bfe'_1\cdot\bfe_3 \\
+\bfe'_2\cdot\bfe_1 & \bfe'_2\cdot\bfe_2 & \bfe'_2\cdot\bfe_3 \\
+\bfe'_3\cdot\bfe_1 & \bfe'_3\cdot\bfe_2 & \bfe'_3\cdot\bfe_3 \end{array} \right) 
+\end{equation}
+This implies 
+\begin{equation}
+\left(\begin{array{c} \bfe'_1 & \bfe'_2 & \bfe'_3 \end{array} \right) = \mathbf{A}_X^{X'} \left(\begin{array{c} \bfe_1 & \bfe_2 & \bfe_3 \end{array} \right)
+\end{equation}
+
+ $SO(3)$ is the group of rotations in three-dimensional euclidean space. If rotations are described using an orthonormal basis in $\mathbb{R}^3$, then all matrices in $SO(3)$ are $3\times 3$ orthogonal matrices: real matrices whose transpose equals its left and right inverses.
+
+The same matrix $\mathbf{A}_X^{X'}$ that produces the change of coordinate system from $X$ to $X'$ when applied to a vector expressed in terms of $X$, may be used to rotate a vector $\mathbf{r}$, forcing it to perform the inverse rotation that $X'$ did with respect to $X$, to obtain antoher vector $\mathbf{u}$·. Intuitively, if one can place an observer fixed to $\mathbf{r}$ while such a rotation takes place, it would \textit{see} the reference frame $X$ transform to $X'$. Recall that when the rotation matrix is used for the latter purpose, no frame transformation takes place, and only one coordinate frame is used to represent each vector.
+
+
+The matrix $\mathbf{A}_X^{X'}$ is called the \textbf{Direction Cosine Matrix} as it is formed by the dot products $\mathbf{A}_X^{X'} = \left\lbrace a_{ij} \right\rbrace = \left\lbrace \mathbf{e}'_i \cdot \mathbf{e}_j \right\rbrace $ which are, in fact, the cosines of the angles that the unit vectors $\mathbf{e}'_i$ form with respect to $\mathbf{e}_j$. (see figure \ref{fig:frameCosines})
+	
+	
+\begin{figure}
+	\centering
+	%\includegraphics[]{}
+	\caption{Direction Cosines}
+	\label{fig:frameCosines}
+\end{figure}
+
+The orientation of the spacecraft may also be described using Euler angles.
+Starting with the body-fixed $oxyz$ axes aligned with the $OXYZ$ axes, the body undergoes a sequence of rotations by angles $\theta_3$, $\theta_2$ and $\theta_1$ about the body-fixed $z$ (yaw), $y$ (pitch) and $x$ (roll) axes respectively to reach its final orientation.
+
+The DCM (Direction Cosine Matrix) is then described by equation \ref{eq:dcm}.
+\begin{equation} \label{eq:dcm}
+C = 
+\end{equation}
+
+\subsection{Orbit Propagation}
+
+\subsection{Environment}
+\input{sections/environment.tex}
+\subsubsection{Magnetic Field}
+\subsubsection{Gravitational Field}
+
+\subsection{Sensor Models}
+
+\subsection{Actuator Models}
+
+\section{Controller Design}

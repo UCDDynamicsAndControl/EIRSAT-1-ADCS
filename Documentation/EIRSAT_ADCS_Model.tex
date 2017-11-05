@@ -13,19 +13,33 @@
 \usepackage{paralist}
 \usepackage{pgfplots}
 \usepackage{bm}
+\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \pgfplotsset{compat=newest}
 \usetikzlibrary{shapes,arrows,scopes,patterns,decorations.pathreplacing}
 \usetikzlibrary{decorations.pathmorphing,3d,calc}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
 
-\title{Modelling and Simulation of EIRSAT-1 Attitude Determination and Control System}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\quat}[1]{#1}
+\newcommand{\tens}[1]{\boldsymbol{#1}}
+\newcommand{\bfe}{\mathbf{e}}
+
+
+\title{Modelling, Simulation and Testing of EIRSAT-1 Attitude Determination and Control System}
 \author{J. Thompson, D. Sherwin, V. Ubeda, W. O'Connor}
 
 \begin{document}
+
 \maketitle
 \tableofcontents
 
-\input{sections.tex}
+\input{sections/background.tex}
+\input{sections/modelling.tex}
+\input{sections/simulation.tex}
+%\input{sections/simulation_results.tex}
+%\input{sections/testing.tex}
 
 \end{document}
