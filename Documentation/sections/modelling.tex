@@ -10,16 +10,18 @@ A second reference frame $A$, is attached to the spacecraft rigid body with coor
 
 A third reference frame, named orbital frame, and here denoted $O$, is spanned by the unit vectors $\left\{\mathbf{o_1}, \mathbf{o_2}, \mathbf{o_3} \right\}$, and centred at the satellite's centre of mass. The vector $\mathbf{o_3}$ constantly points to the Earth's centre, whereas $\mathbf{o_2}$ aligns with the orbit angular momentum. $\mathbf{o_2}$ is the cross product of $\mathbf{o_3}$ and $\mathbf{o_1}$, completing the three axis orthonormal frame.
 
-\subsection{Satellite Dynamics}d
+\subsection{Satellite Dynamics}
 
 EIRSAT-1 is modelled as a single rigid body with six degrees of freedom: three rotational and three translational.\\
 The satellite has mass $m$ and inertia tensor $\mathbf{I}$ in the body fixed coordinate system $O$. From the assumption that $O$ is aligned with the principal axes of inertia of the satellite, it follows that is a $3\times 3$ diagonal matrix.
 
 \subsection{Rotational Kinematics}
 
-The attitude of the spacecraft is described using unit quaternions. These avoid singularities that may arise when other approaches such as DCM (Direction Cosine Matrix) or Euler Angle - Euler Axis are used. Due to the lack of singularities, unit quaternions are widely employed through the literature for computational purposes in ADCS design and simulations. See, for instance ([???]).
+The attitude of the spacecraft is described using unit quaternions. These avoid singularities that may arise when other approaches such as DCM (Direction Cosine Matrix) or Euler Angle - Euler Axis are used. Due to the lack of singularities, unit quaternions are widely employed through the literature for computational purposes in ADCS design and simulations. See, for instance ([???]).\\
 
 \subsubsection{Alternative representations of attitude and conversions}
+
+{|bf Direction Cosine Matrix}
 Rotations in three-dimensional Euclidean space may be described in a number of ways. For instance, let $\mathbf{r}^X$ be a vector expressed as a linear combination of the unit vectors that span the right - handed orthonormal frame $X = \left\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3 \right\}$. That is
 \begin{equation}
 \mathbf{r} = \sum_{i=1}^{3}r_i \mathbf{e_i}
@@ -39,9 +41,7 @@ In vector form:
 \end{equation}
 
 Each one of the components $r'_i$ is the projection (ie. vector product) of the vector $\mathbf{r}$ into $\bfe'_i$. That is $r'_i = \mathbf{r} \cdot \bfe'_i =  \sum_{j=1}^{3} (r_j \bfe_j)\cdot \bfe'_i = \sum_{j=1}^{3} (\bfe'_i \cdot \bfe_j) r_j$. In matrix form:
-\begin{flushright}
-	
-\end{flushright}
+
 \begin{equation}
 \left( \begin{array}{c} r'_1 \\ r'_2 \\ r'_3 \end{array} \right) = 
 \left( \begin{array}{c c c}  
@@ -52,12 +52,13 @@ Each one of the components $r'_i$ is the projection (ie. vector product) of the 
 \end{equation}
 
 There exists a matrix $\mathbf{A}_X^{X'} \in\ SO(3)$ that allows the transformation to the frame {$X' = \left\{\mathbf{e}'_1, \mathbf{e}'_2, \mathbf{e}'_3 \right\}$}. That is to say
+
 \begin{align}
 \mathbf{r}^{X'} &= \mathbf{A}_X^{X'} \mathbf{r}^{X}\\
 \mathbf{r}^{X'} &= \sum_{i=1}^{3} a_{ij} r_j^X \mathbf{e}'_i
 \end{align}
 With
-\begin{equation}
+\begin{equation} \label{eq:DCM}
 \mathbf{A}_X^{X'} =
 \left( \begin{array}{c c c}  
 \bfe'_1\cdot\bfe_1 & \bfe'_1\cdot\bfe_2 & \bfe'_1\cdot\bfe_3 \\
@@ -66,16 +67,14 @@ With
 \end{equation}
 This implies 
 \begin{equation}
-\left(\begin{array{c} \bfe'_1 & \bfe'_2 & \bfe'_3 \end{array} \right) = \mathbf{A}_X^{X'} \left(\begin{array{c} \bfe_1 & \bfe_2 & \bfe_3 \end{array} \right)
+\left( \begin{array}{c} \bfe'_1 \\ \bfe'_2 \\ \bfe'_3 \end{array} \right) = \mathbf{A}_X^{X'} \left( \begin{array}{c} \bfe_1 \\ \bfe_2 \\ \bfe_3 \end{array} \right)
 \end{equation}
 
- $SO(3)$ is the group of rotations in three-dimensional euclidean space. If rotations are described using an orthonormal basis in $\mathbb{R}^3$, then all matrices in $SO(3)$ are $3\times 3$ orthogonal matrices: real matrices whose transpose equals its left and right inverses.
+ $SO(3)$ is the group of rotations in three-dimensional euclidean space. If rotations are described using an orthonormal basis in $\mathbb{R}^3$, then all matrices in $SO(3)$ are $3\times 3$ orthogonal matrices: real matrices whose transpose equals its left and right inverse.\\
 
-The same matrix $\mathbf{A}_X^{X'}$ that produces the change of coordinate system from $X$ to $X'$ when applied to a vector expressed in terms of $X$, may be used to rotate a vector $\mathbf{r}$, forcing it to perform the inverse rotation that $X'$ did with respect to $X$, to obtain antoher vector $\mathbf{u}$·. Intuitively, if one can place an observer fixed to $\mathbf{r}$ while such a rotation takes place, it would \textit{see} the reference frame $X$ transform to $X'$. Recall that when the rotation matrix is used for the latter purpose, no frame transformation takes place, and only one coordinate frame is used to represent each vector.
+The same matrix $\mathbf{A}_X^{X'}$ that produces the change of coordinate system from $X$ to $X'$ when applied to a vector expressed in terms of $X$, may be used to rotate a vector $\mathbf{r}$, forcing it to perform the inverse rotation that $X'$ did with respect to $X$, to obtain antoher vector $\mathbf{u}$·. Intuitively, if one can place an observer fixed to $\mathbf{r}$ while such a rotation takes place, it would \textit{see} the reference frame $X$ transform to $X'$. Recall that when the rotation matrix is used for the latter purpose, no frame transformation takes place, and a single coordinate frame is used to represent each vector.\\
 
-
-The matrix $\mathbf{A}_X^{X'}$ is called the \textbf{Direction Cosine Matrix} as it is formed by the dot products $\mathbf{A}_X^{X'} = \left\lbrace a_{ij} \right\rbrace = \left\lbrace \mathbf{e}'_i \cdot \mathbf{e}_j \right\rbrace $ which are, in fact, the cosines of the angles that the unit vectors $\mathbf{e}'_i$ form with respect to $\mathbf{e}_j$. (see figure \ref{fig:frameCosines})
-	
+The matrix $\mathbf{A}_X^{X'}$ is named the \textbf{Direction Cosine Matrix} as it is formed by the dot products $\mathbf{A}_X^{X'} = \left\lbrace a_{ij} \right\rbrace = \left\lbrace \mathbf{e}'_i \cdot \mathbf{e}_j \right\rbrace $ which are, in fact, the cosines of the angles that the unit vectors $\mathbf{e}'_i$ form with respect to $\mathbf{e}_j$. (see figure \ref{fig:frameCosines}).\\
 	
 \begin{figure}
 	\centering
@@ -84,13 +83,69 @@ The matrix $\mathbf{A}_X^{X'}$ is called the \textbf{Direction Cosine Matrix} as
 	\label{fig:frameCosines}
 \end{figure}
 
-The orientation of the spacecraft may also be described using Euler angles.
-Starting with the body-fixed $oxyz$ axes aligned with the $OXYZ$ axes, the body undergoes a sequence of rotations by angles $\theta_3$, $\theta_2$ and $\theta_1$ about the body-fixed $z$ (yaw), $y$ (pitch) and $x$ (roll) axes respectively to reach its final orientation.
+{\bf Euler's Theorem. Euler Axis and Principal Angle}
 
-The DCM (Direction Cosine Matrix) is then described by equation \ref{eq:dcm}.
-\begin{equation} \label{eq:dcm}
-C = 
+Euler's Theorem ([...]) states that any rotation in 3D space representing an arbitrary transformation between a pair of coordinate frames is uniquely determined by an axis about which a rotation of an angle $\phi$ takes place. The convention is to take $\phi$ positive if the rotation is counter-clockwise, and negative if clockwise. $\phi$ is called the \textit{Principal Angle}. The \textit{Euler  Axis} is designated by a unit vector $\mathbf{e}$ \\
+
+Euler Axis and Principal Angle are closely related to the eigenvalues and eigenvetors of the Direction Cosine Matrix (\ref{eq:DCM}) associated to the transformation. No further discussions on Euler Axis and Principal Angle are required for the complete understanding of this work, therefore we refer to \cite{tewari2007} for the interested reader.\\
+
+{\bf Euler Angles}
+
+The orientation of the spacecraft may also be described using Euler angles.
+Starting with the body-fixed $oxyz$ axes aligned with the $OXYZ$ axes, the body undergoes a sequence of rotations by angles $\theta_3$, $\theta_2$ and $\theta_1$ about the body-fixed $z$ (yaw), $y$ (pitch) and $x$ (roll) axes respectively to reach its final orientation, as depicted in figure \ref{fig:EulerAngles}.
+
+\begin{figure}
+	\centering
+	%\includegraphics[]{}
+	\caption{Euler Angles. $theta_3$, $theta_2$, $theta_3$  Rotation sequence}
+	\label{fig:EulerAngles}
+\end{figure}
+
+The DCM (Direction Cosine Matrix) is then described by equation (\ref{eq:DCMfromEulAng}). See \cite{tewari2007}, or any other work in rigid body dynamics for a derivation.
+ 
+\begin{equation} \label{eq:DCMfromEulAng}
+\newcommand{\ct}{cos\theta_}
+\newcommand{\st}{sin\theta_}
+A_{X}^{X'} = \left( \begin{array}{c c c}
+\ct2\ct3 & \ct2\st3 & -\st2 \\
+\st1\st2\ct3 - \ct1\st3 & \st1\st2\st3 + \ct1\ct3 & \st1\ct2 \\
+\ct1\st2\ct3 + \st1\st3 & \ct1\st2\st3 - \st1\ct3 & \ct1\ct2
+\end{array}\right)
 \end{equation}
+
+Among all the alternatives, Euler Angles are the most intuitive tool for representing rotations in three dimensions, as they have a strong \textit{visual} interpretation. Following the approach used in similar works (see, for instance [???], [???]), Euler Angles have been chosen for attitude representation. Nonetheless, quaternions are used for computational purposes, and appropriate conversions are performed prior to representation of the results.
+
+{\bf Quaternions}
+
+The Euler Symmetric Parameters, also named Quaternions, are sets of four scalar quantities $\mathbf{q} = \left( \eta,  \epsilon_1, \epsilon_2, \epsilon_3 \right)^T$, comprising themselves a scalar part $\eta$ and a vector part $\mathbf{\epsilon} = \left(\epsilon_1, \epsilon_2, \epsilon_3\right)^T$.\\
+
+The definition of a quaternion associated with a transformation in 3D is given by the Euler Axis $\mathbf{e}$ and Principal Angle $\phi$ that uniquely define such transformation:
+\begin{equation}
+\begin{aligned}
+\mathbf{\epsilon}  & = \mathbf{e} \ sin(\phi/2)  \\
+\eta & = cos(\phi/2)
+\end{aligned}
+\end{equation}
+From the definition, it follows that the four scalar parts which form the quaternion are mutually dependent: $ \eta^2 + \epsilon_1^2 + \epsilon_2^2 + \epsilon_3^2 = 1$\\
+
+Both representations Euler Axis/Principal Angle and Quaternions are singularity-free. However, as was already pointed out, the advantages of using Quaternions are mainly related to computational issues. For instance, the rotation matrix is derived from the vector and scalar part of the quaternion without the need for trigonometric calculations, which are generally computationally expensive.
+\begin{equation}
+A_X^{X'} = (\eta^2 - \pmb{\epsilon}^T \pmb{\epsilon}) I +
+2\pmb{\epsilon}\pmb{\epsilon}^T - 2\eta Sk(\pmb{\epsilon})
+\end{equation}
+Where $Skw(\cdot): \mathbb{R}^3 \longrightarrow \mathbb{R}^{3\times 3}$ is an operator related to the vector product 
+\begin{equation}
+Sk(\mathbf{u}) = 
+\left(\begin{array}{c c c}
+0 & -u_3 & u_2 \\
+u_3 & 0 & -u_1 \\
+-u_2 & u_1 & 0
+\end{array} \right)
+\end{equation}
+Such that $\mathbf{u}\times\mathbf{v} = Sk(\mathbf{u})\mathbf{v}$
+
+
+Every attitude representation implies only three independent parameters
 
 \subsection{Orbit Propagation}
 
