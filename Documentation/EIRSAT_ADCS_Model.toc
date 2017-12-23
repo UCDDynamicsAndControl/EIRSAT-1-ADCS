@@ -1,0 +1,32 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Objectives}{2}
+\contentsline {section}{\numberline {3}ADCS Modes and Functional Requirements}{3}
+\contentsline {subsection}{\numberline {3.1}Detumbling}{3}
+\contentsline {subsection}{\numberline {3.2}Sun/distant object pointing}{3}
+\contentsline {subsection}{\numberline {3.3}Nadir/zenith pointing}{3}
+\contentsline {subsection}{\numberline {3.4}Switching between modes}{3}
+\contentsline {section}{\numberline {4}Mathematical Modelling}{4}
+\contentsline {subsection}{\numberline {4.1}Co-ordinate systems and Reference Frames}{4}
+\contentsline {subsection}{\numberline {4.2}Satellite Dynamics}{4}
+\contentsline {subsection}{\numberline {4.3}Rotational Kinematics}{4}
+\contentsline {subsubsection}{\numberline {4.3.1}Alternative representations of attitude and conversions}{4}
+\contentsline {subsection}{\numberline {4.4}Orbit Propagation}{5}
+\contentsline {subsection}{\numberline {4.5}Environment}{5}
+\contentsline {subsubsection}{\numberline {4.5.1}Magnetic Field}{5}
+\contentsline {subsubsection}{\numberline {4.5.2}Gravitational Field}{9}
+\contentsline {subsection}{\numberline {4.6}Sensor Models}{10}
+\contentsline {subsection}{\numberline {4.7}Actuator Models}{10}
+\contentsline {section}{\numberline {5}Controller Design}{10}
+\contentsline {section}{\numberline {6}Simulink Model Structure}{10}
+\contentsline {subsection}{\numberline {6.1}Dynamics block}{10}
+\contentsline {subsubsection}{\numberline {6.1.1}Spacecraft Dynamics}{10}
+\contentsline {subsubsection}{\numberline {6.1.2}Orbital Dynamics}{10}
+\contentsline {subsection}{\numberline {6.2}Environment block}{10}
+\contentsline {subsection}{\numberline {6.3}Disturbance block}{10}
+\contentsline {subsection}{\numberline {6.4}Sensor block}{10}
+\contentsline {subsection}{\numberline {6.5}Actuator block}{10}
+\contentsline {subsection}{\numberline {6.6}Controller block}{10}
+\contentsline {subsection}{\numberline {6.7}Reference block}{10}
+\contentsline {subsection}{\numberline {6.8}Mode Select block}{10}
+\contentsline {subsection}{\numberline {6.9}Running Simulations}{10}
+\contentsline {section}{\numberline {7}Results}{10}

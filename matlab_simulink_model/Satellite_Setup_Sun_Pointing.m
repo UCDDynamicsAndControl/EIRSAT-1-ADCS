@@ -1,5 +1,9 @@
 %% Add folders to path
+<<<<<<< HEAD:Collaborative_model/Satellite_Setup.m
+addpath('Actuators','Control','Disturbances','Dynamics','Graphics');
+=======
 addpath('Environment/IGRF','Actuators','Control','Disturbances','Dynamics','Graphics');
+>>>>>>> master:matlab_simulink_model/Satellite_Setup_Sun_Pointing.m
 
 %% Define Satellite properties 
 mass=2.6;

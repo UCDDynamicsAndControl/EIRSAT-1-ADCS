@@ -1,0 +1,121 @@
+% !TeX root = EIRSAT_ADCS_Model.tex
+
+\section{Introduction}
+This document details a study of the modelling and simulation of the Attitide Determination and Control System (ADCS) for the EIRSAT-1 cubesat.
+This includes the satellite attitude dynamics, orbit propagation after release from the ISS; disturbances torques, position and attitude sensor models, magnetic actuator models and attitude feedback control system.
+The simulation environment was developed using MATLAB/Simulink.
+Simulation results are presented for several different test cases.
+These test cases include demonstrations of different control modes, different control systems and different actuator and sensor configurations including failure of one or more devices.
+
+\section{Objectives}
+\begin{itemize} 
+\item Create a simulation environment for the EIRSAT-1 ADCS subsystem including:
+\begin{itemize} 
+\item Satellite attitude dynamics, modelled as a single rigid body with 6DOF
+\item Orbit propagation of the satellite after release from the ISS
+\item Disturbance torques including: gravity gradient, solar radiation pressure, aerodynamic, residual magnetic field
+\item orbit propagation after release from ISS
+\end{itemize}
+\item Define the different ADCS operational modes and functional requirements for each mode
+\item Design feedback controllers for each mode of the ADCS:
+\begin{itemize} 
+\item first assuming ideal 3-axis actuators
+\item then with two magnetorquer actuators
+\end{itemize}
+\item Design algorithm for safely switching between control modes
+\item Design controllers for failure modes including:
+\begin{itemize} 
+\item failure of one magnetorquer
+\item failure of attitude sensors (needs to be more clearly defined)
+\end{itemize}
+\end{itemize} 
+
+\section{ADCS Modes and Functional Requirements}
+
+\begin{itemize}
+\item Detumbling
+\item Sun/object pointing
+\item Nadir/zenith pointing
+\end{itemize}
+
+\subsection{Detumbling} %Joe
+Max rate to detumble?
+Time taken to detumble?
+Power?
+
+\subsection{Sun/distant object pointing} % Victor
+Required pointing accuracy?
+Settling time from one place to another?
+Power?
+
+\subsection{Nadir/zenith pointing} % Daire
+Required pointing accuracy?
+Time?
+Power?
+
+\subsection{Switching between modes} % Joe
+Which switches can happen?
+When can they happen ? (where in orbit, in eclipse?)
+Time taken?
+
+\section{Mathematical Modelling}
+\subsection{Co-ordinate systems and Reference Frames}
+
+The spacecraft moves in an inertial reference frame $N$ with associated cartesian coordinate system $OXYZ$ where $\mathbf{n_1}$, $\mathbf{n_2}$ and $\mathbf{n_3}$ are unit vectors along the $X$, $Y$ and $Z$ axes respectively. This coordinate system is centred at the center of the earth, $\mathbf{n_3}$ is normal to the equatorial plane and parallel to the earth rotational axis, pointing towards north pole, $\mathbf{n_1}$ points towards the vernal equinox, and $\mathbf{n_2}$ completes the right-handed orthonormal frame.
+
+A second reference frame $A$ is attached to the spacecraft rigid body with coordinate system $Cxyz$ where $C$ is the mass centre of the rigid body and $\mathbf{a_1}$, $\mathbf{a_2}$ and $\mathbf{a_3}$ are unit vectors along the $x$, $y$ and $z$ axes respectively.
+
+A third reference frame, named orbital frame, and here denoted $O$, is spanned by the unit vectors $\mathbf{o_1}$, $\mathbf{o_2}$ and $\mathbf{o_3}$, and centred at the satellite's centre of mass. The vector $\mathbf{o_3}$ constantly points to the Earth's center, whereas $\mathbf{o_2}$ aligns with the orbit angular momentum. $\mathbf{o_2}$ is the cross product of $\mathbf{o_3}$ and $\mathbf{o_1}$, completing the three axis orthonormal frame.
+
+\subsection{Satellite Dynamics}
+
+EIRSAT-1 is modelled as a single rigid body with 6-DOF (degrees of freedom).
+The satellite has mass $m$ and inertia tensor $I$ in the body fixed coordinate system
+
+\subsection{Rotational Kinematics}
+
+The attitude of the spacecraft is described by quaternions.
+
+\subsubsection{Alternative representations of attitude and conversions}
+The orientation of the spacecraft may also be described using a Direction Cosine Matrix.
+
+The orientation of the spacecraft may also be described using Euler angles.
+Starting with the body-fixed $oxyz$ axes aligned with the $OXYZ$ axes, the body undergoes a sequence of rotations by angles $\theta_3$, $\theta_2$ and $\theta_1$ about the body-fixed $z$ (yaw), $y$ (pitch) and $x$ (roll) axes respectively to reach its final orientation.
+
+The DCM (Direction Cosine Matrix) is then described by equation \ref{eq:dcm}.
+\begin{equation} \label{eq:dcm}
+C = 
+\end{equation}
+
+\subsection{Orbit Propagation}
+
+\subsection{Environment}
+	
+\subsubsection{Magnetic Field}
+	\input{Environment.tex}
+\subsubsection{Gravitational Field}
+	\textit{I don't know what to write here!}
+
+\subsection{Sensor Models}
+
+\subsection{Actuator Models}
+
+\section{Controller Design}
+
+\section{Simulink Model Structure}
+\subsection{Dynamics block}
+	\subsubsection{Spacecraft Dynamics} %All
+	\subsubsection{Orbital Dynamics} % Daire
+\subsection{Environment block} % Victor
+\subsection{Disturbance block} % Victor
+\subsection{Sensor block} % Victor
+\subsection{Actuator block} % Daire
+\subsection{Controller block} % All
+\subsection{Reference block} % Joe
+\subsection{Mode Select block} % Joe
+\subsection{Running Simulations}
+Model Setup File
+
+Simulation Setup File
+
+\section{Results}

@@ -1,0 +1,23 @@
+%% DESCRIPTION
+% 
+% Sun pointing with WBC and three actuators
+% 
+% Contoller ---------------------------------------------------------------
+% WBC
+% Disturbance rejection: off
+% k = 5e-8
+% w = sqrt(2*k/m);
+% 
+% Actuator ----------------------------------------------------------------
+% Three-axes magnetorquer
+% nAx = nAy = nAz = 0.2436 Am^2
+%
+% Initial state -----------------------------------------------------------
+% wb_bi_init = 0
+% qb_i_init=angle2quat(0.1,0,0,'XYZ')
+% lat_init=0;
+% long_init=0;
+% 
+% Target ------------------------------------------------------------------
+% q_ref=angle2quat(0,0,0,'XYZ')
+%__________________________________________________________________________
